@@ -53,6 +53,16 @@ const work = [
       'Maintained a technical agenda aligned with industry trends and market events.',
     ],
   },
+  {
+    name: 'UW Information School Advancement Team',
+    position: 'Student Office Assistant',
+    startDate: '2023-09-15',
+    endDate: '2024-06-15',
+    summary: 'The Advancement Student Assistant works with the Advancement team, providing administrative support for our fundraising and alumni relations efforts.',
+    highlights: [
+      'Primary responsibilities include data entry, prepping and execution of Advancement events, and filing contact reports. The Advancement Student Assistant must be detail-oriented and be proficient in Excel. They should be able to work with multiple data sets and should be familiar with the following functions and concepts: VLOOKUP, pivot tables, and text to columns. They should also be a clear communicator with demonstrated experience in writing and copyediting. Experience in customer service is also integral to the role as the Advancement Student Assistant will come in contact with key stakeholders, alumni and donors at events.'
+    ],
+  },
 ];
 
 export default work;
