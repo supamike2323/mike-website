@@ -34,6 +34,20 @@ const ProjectDetails = () => {
                 <img className="project-image" src="/images/projects/storytree-snap.png" alt="Storytree website snapshot" />
               </>
             );
+            case 'Pet-Diagosis-Chatbot':
+              return (
+                <>
+                  <p>{project.desc}</p>
+                  <p>What is Petpal? Petpals is a platform for pet lovers to communicate and discuss solutions if their pets got any diseases, it offers a AI-power chatbot for informing the pet owner some of the rudimentary steps and analysis on knowing what their loved pets might be having, and a forum for pet owners to discuss anything about their pets with others, and eventually an interactive map for users to input their zip code in and shows the hospitals near them.</p>
+                  <p>Used Javascript, React, Google Map API, Botpress API, Google Firebase to complete this website. </p>
+                  <p>You can visit the website <a href="https://info442chatbot.web.app/">here</a>.</p>
+                  <p>Here's a snapshot of the website:</p>
+                  <img className="project-image" src="/images/projects/Petpals-snap.png" alt="Petpals website snapshot" />
+                  <img className="project-image" src="/images/projects/Petpals-snap1.png" alt="Petpals website snapshot1" />
+                  <img className="project-image" src="/images/projects/Petpals-snap2.png" alt="Petpals website snapshot2" />
+                  <img className="project-image" src="/images/projects/Petpals-snap3.png" alt="Petpals website snapshot3" />
+                </>
+              );
       default:
         return null;
     }

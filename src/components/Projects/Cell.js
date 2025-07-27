@@ -11,7 +11,7 @@ const Cell = ({ data }) => (
         <time className="published">{dayjs(data.date).format('MMMM, YYYY')}</time>
       </header>
       <Link to={`/projects/${data.id}`} className="image">
-        <img src={`${process.env.PUBLIC_URL}${data.image}`} alt={data.title} />
+      <img src={`${process.env.PUBLIC_URL}${data.image}`} alt={data.title} style={{ width: '400px', height: 'auto' }} />
       </Link>
       <div className="description">
         <p>{data.desc}</p>

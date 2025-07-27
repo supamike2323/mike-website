@@ -20,8 +20,7 @@ const SideBar = () => (
     <section className="blurb">
       <h2>About</h2>
       <p>
-        My name is Mike Deng, and I am a third year Informatics Data Science Track
-        Students @ the University of Washington. I take pleasure in utilizing my
+        My name is Mike Deng, and I am currently pursuing a Master's in Systems Engineering at the University of Pennsylvania. I take pleasure in utilizing my
         expertise in both technology and business to support and champion the
         interests of others. My background involves guiding collaborative teams in
         making data-informed decisions for product development, with a strong focus

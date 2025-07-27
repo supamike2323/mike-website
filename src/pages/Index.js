@@ -17,13 +17,7 @@ const Index = () => (
         </div>
       </header>
       <p>
-        My name is Mike Deng, and I am a third year Informatics Data Science Track Students @ the
-        University of Washington. I take pleasure in utilizing my expertise in both technology and
-        business to support and champion the interests of others. My background involves guiding
-        collaborative teams in making data-informed decisions for product development, with a strong
-        focus on promoting inclusion and enhancing user experiences. I am eager to take on intricate
-        challenges, find creative solutions to meet customer demands, and maintain a commitment to
-        continuous learning. Let&apos;s connect and explore opportunities together!
+        Welcome to my personal website! I'm Mike Deng, currently pursuing a Master's in Systems Engineering at the University of Pennsylvania. I'm passionate about using technology and data to solve real-world problems and support others in achieving their goals.
       </p>
       <p>Please feel free to read more <Link to="/about">about me</Link>,
         or you can check out my {' '}
