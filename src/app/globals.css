@@ -1,0 +1,259 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: 'SVThin';
+  src: url('/fonts/svthin.otf') format('opentype');
+  font-weight: 100 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  --background: #081e23;
+  --background-overlay: rgba(4, 18, 22, 0.68);
+  --foreground: #e9f7fa;
+  --foreground-soft: rgba(233, 247, 250, 0.78);
+  --foreground-muted: rgba(213, 236, 240, 0.65);
+  --accent: #7de3f2;
+  --accent-strong: #3fb4c4;
+  --accent-deep: #125864;
+  --stardew-wood: #7de3f2;
+  --stardew-wood-dark: #b6f5ff;
+  --stardew-gold: #82f0ff;
+  --stardew-water: #3fb4c4;
+  --stardew-grass: #2f9f9f;
+  --stardew-parchment: rgba(11, 42, 49, 0.85);
+  --stardew-cloud: rgba(255, 255, 255, 0.12);
+  --stardew-shadow: rgba(4, 16, 19, 0.6);
+  --chip-border: rgba(130, 240, 255, 0.55);
+  --chip-bg: rgba(11, 53, 61, 0.82);
+}
+
+html {
+  --font-body: 'system-ui', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+html[data-font='svthin'] {
+  --font-body: 'SVThin', 'system-ui', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #081e23;
+    --background-overlay: rgba(4, 18, 22, 0.78);
+    --foreground: #e9f7fa;
+    --foreground-soft: rgba(233, 247, 250, 0.78);
+    --foreground-muted: rgba(213, 236, 240, 0.65);
+    --accent: #7de3f2;
+    --accent-strong: #3fb4c4;
+    --accent-deep: #125864;
+    --stardew-wood: #7de3f2;
+    --stardew-wood-dark: #b6f5ff;
+    --stardew-gold: #82f0ff;
+    --stardew-parchment: rgba(11, 42, 49, 0.88);
+    --stardew-cloud: rgba(255, 255, 255, 0.1);
+    --stardew-shadow: rgba(4, 16, 19, 0.65);
+    --chip-border: rgba(130, 240, 255, 0.55);
+    --chip-bg: rgba(11, 53, 61, 0.82);
+  }
+}
+
+@layer base {
+  * {
+    border-color: rgba(130, 240, 255, 0.2);
+  }
+
+  body {
+    font-family: var(--font-body);
+    background: var(--background) url('/forest-background.png') center/cover fixed no-repeat;
+    color: var(--foreground);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+}
+
+@layer components {
+  .pixel-card {
+    background-color: var(--stardew-parchment);
+    border: 3px solid var(--chip-border);
+    box-shadow: 6px 6px 0 rgba(2, 17, 20, 0.75), 0 20px 40px var(--stardew-shadow);
+    color: var(--foreground);
+    image-rendering: pixelated;
+  }
+
+  .glass-effect {
+    background: rgba(7, 31, 37, 0.78);
+    border: 3px solid rgba(130, 240, 255, 0.22);
+    box-shadow: 0 22px 44px rgba(1, 12, 15, 0.55);
+    backdrop-filter: blur(6px);
+    color: var(--foreground);
+  }
+
+  .gradient-text {
+    background-image: linear-gradient(180deg, #ecfeff 0%, #a6f7ff 45%, #7de3f2 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    text-shadow: 0 2px 0 rgba(3, 15, 18, 0.45), 0 8px 18px rgba(3, 18, 22, 0.35);
+  }
+
+  .pixel-text {
+    font-family: var(--font-body);
+    letter-spacing: 0.02em;
+  }
+
+  .floating-animation {
+    animation: pixelFloat 5s ease-in-out infinite;
+  }
+
+  .pixel-glow {
+    text-shadow: 0 0 8px rgba(130, 240, 255, 0.45);
+  }
+
+  .stardew-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.85rem 2.4rem;
+    background: linear-gradient(180deg, #4cd2e4 0%, #258ea0 100%);
+    color: var(--foreground);
+    border: 3px solid rgba(130, 240, 255, 0.65);
+    box-shadow: 4px 4px 0 rgba(2, 17, 20, 0.75), 0 18px 32px rgba(1, 12, 15, 0.5);
+    font-family: var(--font-body);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .stardew-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 6px 6px 0 rgba(2, 17, 20, 0.75), 0 24px 36px rgba(1, 12, 15, 0.56);
+  }
+
+  .stardew-button:active {
+    transform: translateY(1px);
+    box-shadow: 2px 2px 0 rgba(2, 17, 20, 0.75), 0 12px 18px rgba(1, 12, 15, 0.4);
+  }
+
+  .stardew-button-secondary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.85rem 2.4rem;
+    background: linear-gradient(180deg, rgba(14, 62, 70, 0.92) 0%, rgba(12, 48, 56, 0.88) 100%);
+    color: var(--foreground);
+    border: 3px solid rgba(130, 240, 255, 0.35);
+    box-shadow: 4px 4px 0 rgba(2, 17, 20, 0.7), 0 16px 28px rgba(1, 12, 15, 0.48);
+    font-family: var(--font-body);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .stardew-button-secondary:hover {
+    transform: translateY(-2px);
+    box-shadow: 6px 6px 0 rgba(2, 17, 20, 0.75), 0 24px 36px rgba(1, 12, 15, 0.5);
+  }
+
+  .stardew-chip {
+    background: var(--chip-bg);
+    border: 2px solid var(--chip-border);
+    color: var(--foreground);
+    font-family: var(--font-body);
+    font-size: 0.75rem;
+    padding: 0.35rem 0.75rem;
+    letter-spacing: 0.03em;
+  }
+
+  .stardew-sky {
+    background: transparent;
+  }
+
+  .stardew-clouds {
+    background: transparent;
+  }
+
+  .stardew-hills {
+    background: transparent;
+  }
+
+  .stardew-fireflies {
+    background: transparent;
+  }
+}
+
+@keyframes pixelFloat {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+@keyframes stardewCloudDrift {
+  0% {
+    background-position: 0 0, 0 0, 0 0, 0 0;
+  }
+  100% {
+    background-position: 200px 0, 320px 0, -180px 0, -260px 0;
+  }
+}
+
+@keyframes stardewFirefly {
+  0% {
+    transform: translateY(0px);
+    opacity: 0.25;
+  }
+  100% {
+    transform: translateY(-12px);
+    opacity: 0.55;
+  }
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(123, 74, 47, 0.2);
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #eecb83 0%, #d69a45 100%);
+  border-radius: 999px;
+  border: 2px solid rgba(123, 74, 47, 0.35);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #f5d99c 0%, #dea353 100%);
+}
+
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.line-clamp-3 {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.line-clamp-4 {
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+* {
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}

@@ -11,4 +11,4 @@ During my recent internship at Cisco, I contributed to developing integrated dat
 - Computer vision and natural language processing research
 - Creating solutions that actually help people
 
-Feel free to connect with me on [LinkedIn](https://www.linkedin.com/in/jiaming-deng-mike/) or email me at mailto:miked232@seas.upenn.edu.
+Feel free to connect with me on [LinkedIn](https://www.linkedin.com/in/jiaming-deng-mike/) or email me at miked232@seas.upenn.edu.
