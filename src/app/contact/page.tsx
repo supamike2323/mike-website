@@ -2,10 +2,10 @@
 
 import { motion } from 'framer-motion';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faGithub, faLinkedin, faTwitter } from '@fortawesome/free-brands-svg-icons';
-import { faEnvelope } from '@fortawesome/free-regular-svg-icons';
-import { faLocationDot } from '@fortawesome/free-solid-svg-icons';
+import { faGithub, faLinkedin } from '@fortawesome/free-brands-svg-icons';
+import { faEnvelope, faLocationDot } from '@fortawesome/free-solid-svg-icons';
 import { Navigation } from '@/components/Navigation';
+import { Starfield } from '@/components/Starfield';
 
 const contactMethods = [
   {
@@ -13,107 +13,123 @@ const contactMethods = [
     label: 'Email',
     value: 'miked232@seas.upenn.edu',
     href: 'mailto:miked232@seas.upenn.edu',
-    color: 'text-[var(--stardew-gold)]',
+    action: 'SEND',
   },
   {
     icon: faLinkedin,
     label: 'LinkedIn',
     value: '/in/jiaming-deng-mike',
     href: 'https://www.linkedin.com/in/jiaming-deng-mike/',
-    color: 'text-[var(--stardew-gold)]',
+    action: 'CONNECT',
   },
   {
     icon: faGithub,
     label: 'GitHub',
     value: '/supamike2323',
     href: 'https://github.com/supamike2323',
-    color: 'text-[var(--stardew-gold)]',
+    action: 'VIEW',
   },
   {
     icon: faLocationDot,
     label: 'Location',
     value: 'Philadelphia, PA',
     href: null,
-    color: 'text-[var(--stardew-gold)]',
+    action: 'LOCATE',
   },
-];
+] as const;
+
+type ContactMethodType = typeof contactMethods[number];
 
 export default function Contact() {
   return (
     <div className="min-h-screen">
+      <Starfield />
       <Navigation />
-      
-      {/* Background decorative elements */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-32 right-12 w-72 h-40 bg-[rgba(11,44,52,0.85)] border-[3px] border-[var(--chip-border)] shadow-[8px_8px_0_rgba(2,17,20,0.7)] rotate-[6deg]" />
-        <div className="absolute bottom-32 left-14 w-72 h-40 bg-[rgba(11,44,52,0.82)] border-[3px] border-[var(--chip-border)] shadow-[8px_8px_0_rgba(2,17,20,0.7)] rotate-[-7deg]" />
-      </div>
 
       <main className="relative pt-24 pb-16 px-4">
-        <div className="max-w-4xl mx-auto">
+        <div className="relative z-10 max-w-4xl mx-auto">
+          {/* Header */}
           <motion.div
             initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            className="text-center mb-16"
+            className="text-center mb-12"
           >
-            <h1 className="text-4xl md:text-6xl font-bold gradient-text pixel-text mb-6">
-              Get In Touch
+            <h1
+              className="text-3xl md:text-4xl font-bold text-white mb-6"
+              style={{ fontFamily: "'Press Start 2P', monospace", fontSize: '24px' }}
+            >
+              TALK
             </h1>
-            <p className="text-xl text-[var(--foreground-soft)] max-w-2xl mx-auto">
-              I'm always excited to chat about thoughtful projects, friendly collaborations, or farming tips for your next app idea.
+            <p
+              className="text-xl text-[var(--ut-yellow)]"
+              style={{ fontFamily: 'VT323, monospace' }}
+            >
+              * You decided to say hello. How will you reach out?
             </p>
           </motion.div>
 
-          <div className="grid md:grid-cols-2 gap-8 mb-16">
-            {contactMethods.map((method, index) => (
-              <motion.div
-                key={method.label}
-                initial={{ opacity: 0, y: 50 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-                whileHover={{ y: -5 }}
-                className="group"
-              >
-                {method.href ? (
-                  <a
-                    href={method.href}
-                    target={method.href.startsWith('http') ? '_blank' : undefined}
-                    rel={method.href.startsWith('http') ? 'noopener noreferrer' : undefined}
-                    className="block p-8 pixel-card rounded-2xl transition-transform duration-300 group-hover:-translate-y-1"
-                  >
-                    <ContactMethodContent method={method} />
-                  </a>
-                ) : (
-                  <div className="p-8 pixel-card rounded-2xl">
-                    <ContactMethodContent method={method} />
-                  </div>
-                )}
-              </motion.div>
-            ))}
-          </div>
+          {/* Contact Menu - Battle Style */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.3 }}
+            className="undertale-box p-8 mb-8"
+          >
+            <div className="grid md:grid-cols-2 gap-6">
+              {contactMethods.map((method, index) => (
+                <motion.div
+                  key={method.label}
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.4, delay: 0.4 + index * 0.1 }}
+                  className="group"
+                >
+                  {method.href ? (
+                    <a
+                      href={method.href}
+                      target={method.href.startsWith('http') ? '_blank' : undefined}
+                      rel={method.href.startsWith('http') ? 'noopener noreferrer' : undefined}
+                      className="block"
+                    >
+                      <ContactOption method={method} />
+                    </a>
+                  ) : (
+                    <ContactOption method={method} />
+                  )}
+                </motion.div>
+              ))}
+            </div>
+          </motion.div>
 
+          {/* Main CTA Box */}
           <motion.div
             initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.6 }}
-            className="pixel-card rounded-3xl p-8 md:p-12 text-center"
+            className="undertale-box p-8 md:p-12 text-center"
           >
-            <h2 className="text-2xl md:text-3xl font-bold gradient-text pixel-text mb-6">
-              Let's Build Something Amazing Together
+            <h2
+              className="text-xl font-bold text-[var(--ut-yellow)] mb-4"
+              style={{ fontFamily: "'Press Start 2P', monospace", fontSize: '14px' }}
+            >
+              LET&apos;S BUILD TOGETHER
             </h2>
-            <p className="text-lg text-[var(--foreground-soft)] mb-8 max-w-2xl mx-auto">
-              Whether you have a project in mind, want to discuss opportunities, 
-              or just feel like saying hi, I'd love to hear from you.
+            <p
+              className="text-white/70 mb-8 max-w-2xl mx-auto"
+              style={{ fontFamily: 'VT323, monospace', fontSize: '20px' }}
+            >
+              * Whether you have a project in mind, want to discuss opportunities, or just feel like saying hi, I&apos;d love to hear from you!
             </p>
             <motion.a
               href="mailto:miked232@seas.upenn.edu"
-              whileHover={{ scale: 1.05, y: -2 }}
+              whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className="stardew-button"
+              className="inline-flex items-center gap-3 px-8 py-4 border-2 border-[var(--ut-yellow)] text-[var(--ut-yellow)] hover:bg-[var(--ut-yellow)] hover:text-black transition-all"
+              style={{ fontFamily: 'VT323, monospace', fontSize: '20px' }}
             >
-              <FontAwesomeIcon icon={faEnvelope} className="w-5 h-5 mr-3" />
-              Send Me an Email
+              <span className="text-[var(--ut-red)]">❤</span>
+              SEND AN EMAIL
             </motion.a>
           </motion.div>
         </div>
@@ -122,40 +138,49 @@ export default function Contact() {
   );
 }
 
-function ContactMethodContent({ method }: { method: any }) {
+function ContactOption({ method }: { method: ContactMethodType }) {
   return (
-    <div className="flex items-center space-x-6">
-      <div className={`flex-shrink-0 w-16 h-16 ${method.color} bg-current bg-opacity-10 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300`}>
-        <FontAwesomeIcon 
-          icon={method.icon} 
-          className={`w-8 h-8 ${method.color}`}
-        />
-      </div>
-      <div className="flex-1 min-w-0">
-        <h3 className="text-lg font-semibold text-[var(--foreground)] mb-1">
-          {method.label}
-        </h3>
-        <p className="text-[var(--foreground-soft)] truncate">
-          {method.value}
-        </p>
-      </div>
-      {method.href && (
-        <div className="flex-shrink-0">
-          <svg
-            className="w-5 h-5 text-[var(--foreground-muted)] group-hover:text-[var(--foreground)] transition-colors duration-300"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
-            />
-          </svg>
+    <div className="p-4 border-2 border-white/30 group-hover:border-[var(--ut-yellow)] transition-all duration-150 cursor-pointer">
+      <div className="flex items-center gap-4">
+        {/* Soul cursor */}
+        <span className="text-[var(--ut-red)] opacity-0 group-hover:opacity-100 transition-opacity text-sm">
+          ❤
+        </span>
+
+        {/* Icon */}
+        <div className="w-10 h-10 flex items-center justify-center border border-white/30 group-hover:border-[var(--ut-yellow)]">
+          <FontAwesomeIcon
+            icon={method.icon as typeof faGithub}
+            className="w-5 h-5 text-white/70 group-hover:text-[var(--ut-yellow)] transition-colors"
+          />
         </div>
-      )}
+
+        {/* Content */}
+        <div className="flex-1 min-w-0">
+          <h3
+            className="text-white group-hover:text-[var(--ut-yellow)] transition-colors mb-1"
+            style={{ fontFamily: "'Press Start 2P', monospace", fontSize: '10px' }}
+          >
+            {method.label}
+          </h3>
+          <p
+            className="text-white/50 truncate"
+            style={{ fontFamily: 'VT323, monospace' }}
+          >
+            {method.value}
+          </p>
+        </div>
+
+        {/* Action */}
+        {method.href && (
+          <span
+            className="text-white/30 group-hover:text-[var(--ut-yellow)] transition-colors"
+            style={{ fontFamily: 'VT323, monospace', fontSize: '14px' }}
+          >
+            [{method.action}]
+          </span>
+        )}
+      </div>
     </div>
   );
 }

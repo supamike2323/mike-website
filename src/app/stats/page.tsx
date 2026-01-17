@@ -2,76 +2,72 @@
 
 import { motion } from 'framer-motion';
 import { Navigation } from '@/components/Navigation';
+import { Starfield } from '@/components/Starfield';
 
 const stats = [
-  {
-    label: 'Projects Completed',
-    value: '5',
-    icon: '🚜',
-  },
-  {
-    label: 'Lines of Code',
-    value: '50K+',
-    icon: '💻',
-  },
-  {
-    label: 'Research Papers',
-    value: '1',
-    icon: '📄',
-  },
-  {
-    label: 'Coffee Cups',
-    value: '∞',
-    icon: '☕',
-  },
+  { label: 'Projects', value: '8', icon: '⚔️' },
+  { label: 'Lines of Code', value: '50K+', icon: '💻' },
+  { label: 'Research Papers', value: '1', icon: '📜' },
+  { label: 'Coffee Cups', value: '∞', icon: '☕' },
 ];
 
 const personalStats = [
-  { label: 'Current Location', value: 'Philadelphia, PA' },
+  { label: 'Location', value: 'Philadelphia, PA' },
   { label: 'Hometown', value: 'Seattle, WA' },
-  { label: 'Age', value: 22 },
+  { label: 'Age', value: '22' },
   { label: 'Languages', value: 'English, Mandarin' },
   { label: 'Favorite Editor', value: 'VS Code' },
-  { label: 'Preferred OS', value: 'macOS' },
+  { label: 'OS', value: 'macOS' },
   { label: 'Coding Since', value: '2018' },
-  { label: 'Current Obsession', value: 'LLMs & AI' },
+  { label: 'Current Focus', value: 'LLMs & AI' },
 ];
 
 const technologies = [
-  { name: 'Python', proficiency: 95, color: 'bg-[var(--stardew-wood)]' },
-  { name: 'JavaScript/TypeScript', proficiency: 90, color: 'bg-[var(--stardew-gold)]' },
-  { name: 'React/Next.js', proficiency: 88, color: 'bg-[var(--stardew-water)]' },
-  { name: 'Machine Learning', proficiency: 85, color: 'bg-[var(--stardew-grass)]' },
-  { name: 'AWS/Cloud', proficiency: 80, color: 'bg-[#90c3d8]' },
-  { name: 'SQL/Databases', proficiency: 82, color: 'bg-[#d6a16c]' },
-  { name: 'Django/FastAPI', proficiency: 78, color: 'bg-[#b5734f]' },
-  { name: 'Docker/K8s', proficiency: 75, color: 'bg-[#7fa5c3]' },
+  { name: 'Python', proficiency: 95 },
+  { name: 'JavaScript/TypeScript', proficiency: 90 },
+  { name: 'React/Next.js', proficiency: 88 },
+  { name: 'Machine Learning', proficiency: 85 },
+  { name: 'AWS/Cloud', proficiency: 80 },
+  { name: 'SQL/Databases', proficiency: 82 },
+  { name: 'Django/FastAPI', proficiency: 78 },
+  { name: 'Docker/K8s', proficiency: 75 },
+];
+
+const funFacts = [
+  { icon: '🎮', title: 'Gamer', desc: 'Strategy games and RPGs' },
+  { icon: '📚', title: 'Learner', desc: 'Always reading tech papers' },
+  { icon: '🌮', title: 'Foodie', desc: 'Best local food spots' },
+  { icon: '🏃‍♂️', title: 'Runner', desc: 'Morning runs daily' },
+  { icon: '🎵', title: 'Music', desc: 'Code with playlists' },
+  { icon: '🧠', title: 'AI Fan', desc: 'Fascinated by AI potential' },
 ];
 
 export default function Stats() {
   return (
     <div className="min-h-screen">
+      <Starfield />
       <Navigation />
-      
-      {/* Background decorative elements */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-36 right-12 w-80 h-40 bg-[rgba(11,44,52,0.82)] border-[3px] border-[var(--chip-border)] shadow-[8px_8px_0_rgba(2,17,20,0.7)] rotate-[7deg]" />
-        <div className="absolute bottom-40 left-14 w-72 h-40 bg-[rgba(11,44,52,0.8)] border-[3px] border-[var(--chip-border)] shadow-[8px_8px_0_rgba(2,17,20,0.7)] rotate-[-8deg]" />
-      </div>
 
       <main className="relative pt-24 pb-16 px-4">
-        <div className="max-w-7xl mx-auto">
-        <motion.header
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          className="text-center mb-16"
-        >
-            <h1 className="text-4xl md:text-6xl font-bold gradient-text pixel-text mb-6">
-              Stats & Facts
+        <div className="relative z-10 max-w-6xl mx-auto">
+          {/* Header */}
+          <motion.header
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            className="text-center mb-12"
+          >
+            <h1
+              className="text-3xl md:text-4xl font-bold text-white mb-6"
+              style={{ fontFamily: "'Press Start 2P', monospace", fontSize: '24px' }}
+            >
+              STATS & FACTS
             </h1>
-            <p className="text-xl text-[var(--foreground-soft)] max-w-3xl mx-auto">
-              A cozy ledger of the things I have built, learned, and enjoyed along the way.
+            <p
+              className="text-xl text-[var(--ut-yellow)]"
+              style={{ fontFamily: 'VT323, monospace' }}
+            >
+              * You viewed your save file.
             </p>
           </motion.header>
 
@@ -80,28 +76,32 @@ export default function Stats() {
             initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="mb-16"
+            className="mb-12"
           >
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
               {stats.map((stat, index) => (
                 <motion.div
                   key={stat.label}
-                  initial={{ opacity: 0, scale: 0.5 }}
+                  initial={{ opacity: 0, scale: 0.8 }}
                   animate={{ opacity: 1, scale: 1 }}
-                  transition={{ duration: 0.6, delay: 0.4 + index * 0.1 }}
-                  whileHover={{ scale: 1.05, y: -5 }}
-                  className="text-center"
+                  transition={{ duration: 0.4, delay: 0.3 + index * 0.1 }}
+                  whileHover={{ scale: 1.05 }}
+                  className="undertale-box p-6 text-center group"
                 >
-                  <div className="pixel-card rounded-2xl p-6 group hover:-translate-y-1 transition-transform duration-300">
-                    <div className="text-4xl mb-4 group-hover:scale-110 transition-transform duration-300">
-                      {stat.icon}
-                    </div>
-                    <div className="text-3xl font-bold text-[var(--foreground)] pixel-text mb-2">
-                      {stat.value}
-                    </div>
-                    <div className="text-sm text-[var(--foreground-muted)]">
-                      {stat.label}
-                    </div>
+                  <div className="text-3xl mb-3 group-hover:scale-110 transition-transform">
+                    {stat.icon}
+                  </div>
+                  <div
+                    className="text-2xl text-[var(--ut-yellow)] mb-1"
+                    style={{ fontFamily: "'Press Start 2P', monospace", fontSize: '16px' }}
+                  >
+                    {stat.value}
+                  </div>
+                  <div
+                    className="text-white/60 text-sm"
+                    style={{ fontFamily: 'VT323, monospace' }}
+                  >
+                    {stat.label}
                   </div>
                 </motion.div>
               ))}
@@ -111,25 +111,36 @@ export default function Stats() {
           <div className="grid lg:grid-cols-2 gap-8">
             {/* Personal Stats */}
             <motion.section
-              initial={{ opacity: 0, x: -50 }}
+              initial={{ opacity: 0, x: -30 }}
               animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8, delay: 0.6 }}
+              transition={{ duration: 0.8, delay: 0.5 }}
             >
-              <h2 className="text-3xl font-bold gradient-text pixel-text mb-8">About Me</h2>
-              <div className="pixel-card rounded-2xl p-6">
-                <div className="space-y-4">
+              <h2
+                className="text-xl font-bold text-[var(--ut-yellow)] mb-6"
+                style={{ fontFamily: "'Press Start 2P', monospace", fontSize: '14px' }}
+              >
+                ABOUT ME
+              </h2>
+              <div className="undertale-box p-6">
+                <div className="space-y-3">
                   {personalStats.map((stat, index) => (
                     <motion.div
                       key={stat.label}
-                      initial={{ opacity: 0, x: -30 }}
+                      initial={{ opacity: 0, x: -20 }}
                       animate={{ opacity: 1, x: 0 }}
-                      transition={{ duration: 0.6, delay: 0.8 + index * 0.05 }}
-                      className="flex justify-between items-center py-2 border-b border-[rgba(130,240,255,0.22)] last:border-b-0"
+                      transition={{ duration: 0.4, delay: 0.6 + index * 0.05 }}
+                      className="flex justify-between items-center py-2 border-b border-white/10 last:border-b-0"
                     >
-                      <span className="text-[var(--foreground-muted)]">
+                      <span
+                        className="text-white/50"
+                        style={{ fontFamily: 'VT323, monospace' }}
+                      >
                         {stat.label}
                       </span>
-                      <span className="font-semibold text-[var(--foreground)]">
+                      <span
+                        className="text-white"
+                        style={{ fontFamily: 'VT323, monospace' }}
+                      >
                         {stat.value}
                       </span>
                     </motion.div>
@@ -140,35 +151,45 @@ export default function Stats() {
 
             {/* Technology Proficiency */}
             <motion.section
-              initial={{ opacity: 0, x: 50 }}
+              initial={{ opacity: 0, x: 30 }}
               animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8, delay: 0.8 }}
+              transition={{ duration: 0.8, delay: 0.7 }}
             >
-              <h2 className="text-3xl font-bold gradient-text pixel-text mb-8">Technology Proficiency</h2>
-              <div className="pixel-card rounded-2xl p-6">
+              <h2
+                className="text-xl font-bold text-[var(--ut-yellow)] mb-6"
+                style={{ fontFamily: "'Press Start 2P', monospace", fontSize: '14px' }}
+              >
+                TECH PROFICIENCY
+              </h2>
+              <div className="undertale-box p-6">
                 <div className="space-y-4">
                   {technologies.map((tech, index) => (
                     <motion.div
                       key={tech.name}
-                      initial={{ opacity: 0, x: 30 }}
+                      initial={{ opacity: 0, x: 20 }}
                       animate={{ opacity: 1, x: 0 }}
-                      transition={{ duration: 0.6, delay: 1.0 + index * 0.05 }}
-                      className="space-y-2"
+                      transition={{ duration: 0.4, delay: 0.8 + index * 0.05 }}
                     >
-                      <div className="flex justify-between items-center">
-                        <span className="text-[var(--foreground)] font-medium">
+                      <div className="flex justify-between items-center mb-1">
+                        <span
+                          className="text-white"
+                          style={{ fontFamily: 'VT323, monospace' }}
+                        >
                           {tech.name}
                         </span>
-                        <span className="text-sm text-[var(--foreground-muted)]">
+                        <span
+                          className="text-white/50 text-sm"
+                          style={{ fontFamily: 'VT323, monospace' }}
+                        >
                           {tech.proficiency}%
                         </span>
                       </div>
-                      <div className="w-full bg-[rgba(130,240,255,0.2)] rounded-full h-2">
+                      <div className="h-3 border border-white/30">
                         <motion.div
+                          className="h-full bg-[var(--ut-yellow)]"
                           initial={{ width: 0 }}
                           animate={{ width: `${tech.proficiency}%` }}
-                          transition={{ duration: 1.5, delay: 1.2 + index * 0.1, ease: 'easeOut' }}
-                          className={`h-2 rounded-full ${tech.color}`}
+                          transition={{ duration: 1, delay: 1 + index * 0.1 }}
                         />
                       </div>
                     </motion.div>
@@ -178,63 +199,43 @@ export default function Stats() {
             </motion.section>
           </div>
 
-          {/* Fun Section */}
+          {/* Fun Facts */}
           <motion.section
             initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 1.2 }}
-            className="mt-16"
+            transition={{ duration: 0.8, delay: 1 }}
+            className="mt-12"
           >
-            <h2 className="text-3xl font-bold gradient-text pixel-text mb-8 text-center">Fun Facts</h2>
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {[
-                {
-                  icon: '🎮',
-                  title: 'Gamer',
-                  description: 'Love strategy games and RPGs in my free time',
-                },
-                {
-                  icon: '📚',
-                  title: 'Continuous Learner',
-                  description: 'Always reading about new technologies and research',
-                },
-                {
-                  icon: '🌮',
-                  title: 'Food Explorer',
-                  description: 'Constantly searching for the best local food spots',
-                },
-                {
-                  icon: '🏃‍♂️',
-                  title: 'Runner',
-                  description: 'Enjoy morning runs to clear my mind',
-                },
-                {
-                  icon: '🎵',
-                  title: 'Music Lover',
-                  description: 'Code better with the right playlist',
-                },
-                {
-                  icon: '🧠',
-                  title: 'AI Enthusiast',
-                  description: 'Fascinated by the potential of artificial intelligence',
-                },
-              ].map((fact, index) => (
+            <h2
+              className="text-xl font-bold text-[var(--ut-yellow)] mb-6 text-center"
+              style={{ fontFamily: "'Press Start 2P', monospace", fontSize: '14px' }}
+            >
+              FUN FACTS
+            </h2>
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+              {funFacts.map((fact, index) => (
                 <motion.div
                   key={fact.title}
-                  initial={{ opacity: 0, y: 30 }}
+                  initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, delay: 1.4 + index * 0.1 }}
-                  whileHover={{ scale: 1.05, y: -5 }}
-                  className="pixel-card rounded-2xl p-6 text-center group hover:-translate-y-1 transition-transform duration-300"
+                  transition={{ duration: 0.4, delay: 1.1 + index * 0.1 }}
+                  whileHover={{ scale: 1.03 }}
+                  className="undertale-box p-4 text-center group"
                 >
-                  <div className="text-4xl mb-4 group-hover:scale-110 transition-transform duration-300">
+                  <div className="text-2xl mb-2 group-hover:scale-110 transition-transform">
                     {fact.icon}
                   </div>
-                  <h3 className="text-lg font-semibold text-[var(--foreground)] mb-2">
+                  <h3
+                    className="text-white mb-1"
+                    style={{ fontFamily: "'Press Start 2P', monospace", fontSize: '10px' }}
+                  >
                     {fact.title}
                   </h3>
-                  <p className="text-sm text-[var(--foreground-muted)]">
-                    {fact.description}
+                  <p
+                    className="text-white/50 text-sm"
+                    style={{ fontFamily: 'VT323, monospace' }}
+                  >
+                    {fact.desc}
                   </p>
                 </motion.div>
               ))}

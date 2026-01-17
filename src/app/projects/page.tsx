@@ -1,209 +1,213 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
 import { Navigation } from '@/components/Navigation';
+import { Starfield } from '@/components/Starfield';
 import projects from '@/data/projects';
 
 export default function Projects() {
+  const [selectedProject, setSelectedProject] = useState<string | null>(null);
+
   // Sort projects by date (most recent first)
   const sortedProjects = [...projects].sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 
+  const selected = sortedProjects.find(p => p.id === selectedProject);
+
   return (
     <div className="min-h-screen">
+      <Starfield />
       <Navigation />
-      
-      {/* Background decorative elements */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-32 right-16 w-80 h-48 bg-[rgba(11,44,52,0.85)] border-[3px] border-[var(--chip-border)] shadow-[8px_8px_0_rgba(2,17,20,0.7)] rotate-[8deg]" />
-        <div className="absolute bottom-32 left-16 w-72 h-44 bg-[rgba(11,44,52,0.82)] border-[3px] border-[var(--chip-border)] shadow-[8px_8px_0_rgba(2,17,20,0.7)] rotate-[-6deg]" />
-      </div>
 
       <main className="relative pt-24 pb-16">
-        <div className="max-w-7xl mx-auto px-4">
-        <motion.header
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          className="text-center mb-16"
-        >
-            <h1 className="text-4xl md:text-6xl font-bold gradient-text pixel-text mb-6">
-              Project Timeline
+        <div className="relative z-10 max-w-7xl mx-auto px-4">
+          {/* Header */}
+          <motion.header
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            className="text-center mb-12"
+          >
+            <h1
+              className="text-3xl md:text-4xl font-bold text-white mb-6"
+              style={{ fontFamily: "'Press Start 2P', monospace", fontSize: '24px' }}
+            >
+              INVENTORY
             </h1>
-            <p className="text-xl text-[var(--foreground-soft)] max-w-3xl mx-auto mb-8">
-              Wander through my projects in machine learning, web experiences, and research—fresh harvests appear first.
+            <p
+              className="text-2xl text-[var(--ut-yellow)] max-w-3xl mx-auto"
+              style={{ fontFamily: 'VT323, monospace' }}
+            >
+              * You opened your inventory. Select an item to inspect.
             </p>
-            <div className="flex items-center justify-center gap-2 text-sm text-[var(--foreground-muted)] pixel-text">
-              <span>Newest</span>
-              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-              </svg>
-              <span>Oldest</span>
-            </div>
           </motion.header>
 
-          {/* Horizontal Timeline Container */}
-          <div className="relative">
-            {/* Horizontal Timeline Line */}
-            <div className="absolute top-16 left-0 right-0 h-1 bg-[rgba(130,240,255,0.35)]"></div>
-            
-            {/* Scrollable Container */}
-            <div className="overflow-x-auto pb-8">
-              <div className="flex space-x-8 min-w-max px-4">
-                {sortedProjects.map((project, index) => (
-                  <motion.div
-                    key={project.id}
-                    initial={{ opacity: 0, y: 50 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6, delay: index * 0.1 }}
-                    className="relative flex flex-col items-center"
-                  >
-                    {/* Timeline Dot */}
-                    <div className="relative z-10 flex-shrink-0 w-20 h-20 mb-6">
-                      <motion.div
-                        className="absolute inset-0 rounded-lg border-[3px] border-[var(--chip-border)] bg-[var(--stardew-gold)] shadow-[4px_4px_0_rgba(2,17,20,0.7)]"
-                        whileHover={{ scale: 1.05 }}
-                        transition={{ duration: 0.2 }}
-                      >
-                        <div className="absolute inset-[6px] rounded-md bg-[rgba(7,31,37,0.8)] flex flex-col items-center justify-center pixel-text text-[var(--foreground)]">
-                          <span className="text-sm leading-none">
-                            {new Date(project.date).getFullYear()}
-                          </span>
-                          <span className="text-xs leading-none mt-1">
-                            {new Date(project.date).toLocaleDateString('en-US', {
-                              month: 'short'
-                            }).toUpperCase()}
-                          </span>
-                        </div>
-                      </motion.div>
-                    </div>
-
-                    {/* Project Card */}
-                    <motion.div 
-                      className="w-80 group"
-                      whileHover={{ y: -5 }}
-                      transition={{ duration: 0.3 }}
+          <div className="grid lg:grid-cols-3 gap-8">
+            {/* Project Grid - Inventory Style */}
+            <div className="lg:col-span-2">
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.2 }}
+                className="undertale-box p-6"
+              >
+                <div className="grid sm:grid-cols-2 gap-4">
+                  {sortedProjects.map((project, index) => (
+                    <motion.div
+                      key={project.id}
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.4, delay: 0.1 + index * 0.05 }}
+                      onClick={() => setSelectedProject(project.id)}
+                      className={`group cursor-pointer p-4 border-[3px] transition-all duration-150 ${selectedProject === project.id
+                        ? 'border-[var(--ut-yellow)] bg-[var(--ut-yellow)]/10'
+                        : 'border-white/50 hover:border-white'
+                        }`}
                     >
-                      <Link href={`/projects/${project.id}`}>
-                        <div className="pixel-card p-6 transition-all duration-300 cursor-pointer h-full">
-                          {/* Project Header */}
-                          <div className="flex items-start justify-between mb-4">
-                            <div className="flex-1">
-                              <motion.div
-                                initial={{ opacity: 0 }}
-                                animate={{ opacity: 1 }}
-                                transition={{ delay: 0.3 + index * 0.1 }}
-                              >
-                                <span className="text-sm text-[var(--foreground-muted)] pixel-text">
-                                  {new Date(project.date).toLocaleDateString('en-US', { 
-                                    month: 'long',
-                                    year: 'numeric'
-                                  })}
-                                </span>
-                                <h2 className="text-xl font-bold text-[var(--foreground)] pixel-text mt-1 mb-2 group-hover:text-[var(--stardew-gold)] transition-colors duration-300 line-clamp-2">
-                                  {project.title}
-                                </h2>
-                                <h3 className="text-sm text-[var(--foreground-muted)] font-semibold mb-3 line-clamp-2">
-                                  {project.subtitle}
-                                </h3>
-                              </motion.div>
-                            </div>
-                            
-                            {/* Arrow Icon */}
-                            <motion.div
-                              className="flex-shrink-0 ml-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                              whileHover={{ scale: 1.1 }}
-                            >
-                              <svg
-                                className="w-5 h-5 text-[var(--foreground)]"
-                                fill="none"
-                                stroke="currentColor"
-                                viewBox="0 0 24 24"
-                              >
-                                <path
-                                  strokeLinecap="round"
-                                  strokeLinejoin="round"
-                                  strokeWidth={2}
-                                  d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
-                                />
-                              </svg>
-                            </motion.div>
-                          </div>
+                      <div className="flex items-start gap-3">
+                        {/* Selection indicator */}
+                        <span className={`text-[var(--ut-red)] text-sm mt-1 transition-opacity ${selectedProject === project.id ? 'opacity-100' : 'opacity-0 group-hover:opacity-50'
+                          }`}>
+                          ❤
+                        </span>
 
-                          {/* Project Description */}
-                          <p className="text-[var(--foreground-soft)] leading-relaxed mb-4 text-sm line-clamp-4">
-                            {project.desc}
+                        <div className="flex-1 min-w-0">
+                          <h3
+                            className={`text-sm font-bold mb-1 transition-colors line-clamp-2 ${selectedProject === project.id ? 'text-[var(--ut-yellow)]' : 'text-white group-hover:text-[var(--ut-yellow)]'
+                              }`}
+                            style={{ fontFamily: 'VT323, monospace', fontSize: '20px' }}
+                          >
+                            {project.title}
+                          </h3>
+                          <p
+                            className="text-white/70 text-sm"
+                            style={{ fontFamily: 'VT323, monospace' }}
+                          >
+                            {new Date(project.date).toLocaleDateString('en-US', {
+                              month: 'short',
+                              year: 'numeric'
+                            })}
                           </p>
+                        </div>
+                      </div>
+                    </motion.div>
+                  ))}
+                </div>
+              </motion.div>
+            </div>
 
-                          {/* Technologies */}
-                          {project.technologies && (
-                            <motion.div
-                              initial={{ opacity: 0, y: 20 }}
-                              animate={{ opacity: 1, y: 0 }}
-                              transition={{ duration: 0.6, delay: 0.4 + index * 0.1 }}
-                              className="flex flex-wrap gap-1.5 mb-4"
-                            >
-                              {project.technologies.slice(0, 3).map((tech) => (
-                                <span
-                                  key={tech}
-                                  className="stardew-chip"
-                                >
-                                  {tech}
-                                </span>
-                              ))}
-                              {project.technologies.length > 3 && (
-                                <span className="px-2 py-1 text-xs text-[var(--foreground)] font-semibold pixel-text">
-                                  +{project.technologies.length - 3}
-                                </span>
-                              )}
-                            </motion.div>
-                          )}
+            {/* Project Details Panel */}
+            <div className="lg:col-span-1">
+              <motion.div
+                initial={{ opacity: 0, x: 20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 0.4 }}
+                className="undertale-box p-6 sticky top-24"
+              >
+                <AnimatePresence mode="wait">
+                  {selected ? (
+                    <motion.div
+                      key={selected.id}
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0 }}
+                      transition={{ duration: 0.2 }}
+                    >
+                      {/* Item Header */}
+                      <div className="border-b border-white/30 pb-4 mb-4">
+                        <h2
+                          className="text-[var(--ut-yellow)] text-lg mb-2"
+                          style={{ fontFamily: "'Press Start 2P', monospace", fontSize: '12px' }}
+                        >
+                          {selected.title}
+                        </h2>
+                        <p
+                          className="text-white/70"
+                          style={{ fontFamily: 'VT323, monospace' }}
+                        >
+                          {selected.subtitle}
+                        </p>
+                      </div>
 
-                          {/* Project Links */}
-                          <div className="flex flex-col gap-2 text-xs">
-                            <span className="text-[var(--foreground)] font-semibold pixel-text">
-                              Click to view details
-                            </span>
-                            <div className="flex items-center gap-3">
-                              {project.link && (
-                                <span className="text-[var(--foreground-muted)] flex items-center gap-1 font-semibold">
-                                  <span className="w-1.5 h-1.5 bg-[var(--stardew-grass)] rounded-full"></span>
-                                  Live Demo
-                                </span>
-                              )}
-                              {project.github && (
-                                <span className="text-[var(--foreground-muted)] flex items-center gap-1 font-semibold">
-                                  <span className="w-1.5 h-1.5 bg-[var(--stardew-water)] rounded-full"></span>
-                                  Source Code
-                                </span>
-                              )}
-                              {project.publication && (
-                                <span className="text-[var(--foreground-muted)] flex items-center gap-1 font-semibold">
-                                  <span className="w-1.5 h-1.5 bg-[var(--stardew-gold)] rounded-full"></span>
-                                  Published Research
-                                </span>
-                              )}
-                            </div>
+                      {/* Description */}
+                      <div className="mb-6">
+                        <p
+                          className="text-white/90 leading-relaxed text-lg"
+                          style={{ fontFamily: 'VT323, monospace', fontSize: '20px' }}
+                        >
+                          <span className="text-[var(--ut-yellow)]">* </span>
+                          {selected.desc}
+                        </p>
+                      </div>
+
+                      {/* Technologies */}
+                      {selected.technologies && (
+                        <div className="mb-6">
+                          <h4
+                            className="text-white/50 text-xs mb-2"
+                            style={{ fontFamily: 'VT323, monospace' }}
+                          >
+                            EQUIPPED SKILLS
+                          </h4>
+                          <div className="flex flex-wrap gap-2">
+                            {selected.technologies.map((tech) => (
+                              <span
+                                key={tech}
+                                className="px-3 py-1 bg-white/10 border border-white/60 text-white text-sm"
+                                style={{ fontFamily: 'VT323, monospace' }}
+                              >
+                                {tech}
+                              </span>
+                            ))}
                           </div>
                         </div>
-                      </Link>
+                      )}
+
+                      {/* Actions */}
+                      <div className="space-y-2">
+                        <Link href={`/projects/${selected.id}`}>
+                          <motion.button
+                            whileHover={{ scale: 1.02 }}
+                            whileTap={{ scale: 0.98 }}
+                            className="w-full px-4 py-3 border-2 border-white text-white hover:border-[var(--ut-yellow)] hover:text-[var(--ut-yellow)] transition-all text-left flex items-center gap-2"
+                            style={{ fontFamily: 'VT323, monospace' }}
+                          >
+                            <span className="text-[var(--ut-red)]">❤</span>
+                            VIEW DETAILS
+                          </motion.button>
+                        </Link>
+
+                        {selected.link && (
+                          <a href={selected.link} target="_blank" rel="noopener noreferrer">
+                            <motion.button
+                              whileHover={{ scale: 1.02 }}
+                              whileTap={{ scale: 0.98 }}
+                              className="w-full px-4 py-3 border-2 border-white/50 text-white/70 hover:border-white hover:text-white transition-all text-left"
+                              style={{ fontFamily: 'VT323, monospace' }}
+                            >
+                              LIVE DEMO
+                            </motion.button>
+                          </a>
+                        )}
+                      </div>
                     </motion.div>
-                  </motion.div>
-                ))}
-              </div>
-            </div>
-            
-            {/* Scroll Hint */}
-            <div className="flex justify-center mt-8">
-              <div className="flex items-center gap-2 text-sm text-[var(--foreground-muted)] pixel-text">
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 16l-4-4m0 0l4-4m-4 4h18" />
-                </svg>
-                <span>Scroll horizontally to see more projects</span>
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                </svg>
-              </div>
+                  ) : (
+                    <motion.div
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      className="text-center py-12"
+                    >
+                      <p
+                        className="text-white/50"
+                        style={{ fontFamily: 'VT323, monospace', fontSize: '18px' }}
+                      >
+                        * Select an item from your inventory
+                      </p>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </motion.div>
             </div>
           </div>
 
@@ -211,23 +215,30 @@ export default function Projects() {
           <motion.div
             initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.8 }}
+            transition={{ duration: 0.8, delay: 0.6 }}
             className="text-center mt-16"
           >
-            <div className="pixel-card p-8 max-w-2xl mx-auto">
-              <h2 className="text-2xl font-bold gradient-text pixel-text mb-4">
-                Interested in Collaborating?
+            <div className="undertale-box p-8 max-w-2xl mx-auto">
+              <h2
+                className="text-xl font-bold text-[var(--ut-yellow)] mb-4"
+                style={{ fontFamily: "'Press Start 2P', monospace", fontSize: '14px' }}
+              >
+                WANT TO COLLABORATE?
               </h2>
-              <p className="text-[var(--foreground-soft)] mb-6">
-                I'm always open to discussing new opportunities and friendly collaborations.
+              <p
+                className="text-white/70 mb-6"
+                style={{ fontFamily: 'VT323, monospace', fontSize: '20px' }}
+              >
+                * I&apos;m always open to discussing new opportunities!
               </p>
               <Link href="/contact">
                 <motion.button
-                  whileHover={{ scale: 1.05, y: -2 }}
+                  whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  className="stardew-button"
+                  className="px-8 py-3 border-2 border-[var(--ut-yellow)] text-[var(--ut-yellow)] hover:bg-[var(--ut-yellow)] hover:text-black transition-all"
+                  style={{ fontFamily: 'VT323, monospace', fontSize: '20px' }}
                 >
-                  Get In Touch
+                  ❤ GET IN TOUCH
                 </motion.button>
               </Link>
             </div>

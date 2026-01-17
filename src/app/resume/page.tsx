@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion';
 import { Navigation } from '@/components/Navigation';
+import { Starfield } from '@/components/Starfield';
 
 const experiences = [
   {
@@ -36,7 +37,7 @@ const education = [
     school: 'University of Pennsylvania',
     location: 'Philadelphia, PA',
     period: '2025-2026',
-    gpa: 'unknown yet',
+    gpa: '???',
   },
   {
     degree: 'Bachelor of Science in Computer Science',
@@ -49,98 +50,129 @@ const education = [
 
 const skills = [
   {
-    category: 'Programming Languages',
+    category: 'Languages',
     items: ['Python', 'JavaScript/TypeScript', 'R', 'SQL', 'Java', 'C++'],
+    level: 95,
   },
   {
-    category: 'Machine Learning & AI',
-    items: ['PyTorch', 'TensorFlow', 'scikit-learn', 'LangGraph', 'Computer Vision', 'NLP'],
+    category: 'ML & AI',
+    items: ['PyTorch', 'TensorFlow', 'scikit-learn', 'LangGraph', 'CV', 'NLP'],
+    level: 85,
   },
   {
-    category: 'Web Development',
-    items: ['React', 'Next.js', 'Node.js', 'Django', 'Express.js', 'RESTful APIs'],
+    category: 'Web Dev',
+    items: ['React', 'Next.js', 'Node.js', 'Django', 'Express.js'],
+    level: 90,
   },
   {
-    category: 'Cloud & Databases',
-    items: ['AWS', 'PostgreSQL', 'MongoDB', 'Redis', 'Docker', 'Kubernetes'],
-  },
-  {
-    category: 'Data Science',
-    items: ['Pandas', 'NumPy', 'R Shiny', 'Plotly', 'A/B Testing', 'Statistical Analysis'],
+    category: 'Cloud',
+    items: ['AWS', 'PostgreSQL', 'MongoDB', 'Redis', 'Docker'],
+    level: 80,
   },
 ];
 
 export default function Resume() {
   return (
     <div className="min-h-screen">
+      <Starfield />
       <Navigation />
-      
-      {/* Background decorative elements */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-36 right-12 w-80 h-42 bg-[rgba(11,44,52,0.85)] border-[3px] border-[var(--chip-border)] shadow-[8px_8px_0_rgba(2,17,20,0.7)] rotate-[7deg]" />
-        <div className="absolute bottom-36 left-10 w-72 h-40 bg-[rgba(11,44,52,0.82)] border-[3px] border-[var(--chip-border)] shadow-[8px_8px_0_rgba(2,17,20,0.7)] rotate-[-6deg]" />
-      </div>
 
       <main className="relative pt-24 pb-16 px-4">
-        <div className="max-w-6xl mx-auto">
+        <div className="relative z-10 max-w-6xl mx-auto">
+          {/* Header */}
           <motion.header
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            className="text-center mb-16"
+            className="text-center mb-12"
           >
-            <h1 className="text-4xl md:text-6xl font-bold gradient-text pixel-text mb-6">
-              Resume
+            <h1
+              className="text-3xl md:text-4xl font-bold text-white mb-6"
+              style={{ fontFamily: "'Press Start 2P', monospace", fontSize: '24px' }}
+            >
+              STATS
             </h1>
-            <p className="text-xl text-[var(--foreground-soft)] max-w-3xl mx-auto">
-              A season-by-season look at my work, studies, and favorite tools.
+            <p
+              className="text-xl text-[var(--ut-yellow)]"
+              style={{ fontFamily: 'VT323, monospace' }}
+            >
+              * You examined your equipment and abilities.
             </p>
           </motion.header>
 
           <div className="grid lg:grid-cols-3 gap-8">
             {/* Main Content */}
-            <div className="lg:col-span-2 space-y-12">
+            <div className="lg:col-span-2 space-y-8">
               {/* Experience */}
               <motion.section
                 initial={{ opacity: 0, y: 50 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.2 }}
               >
-                <h2 className="text-3xl font-bold gradient-text pixel-text mb-8">Experience</h2>
-                <div className="space-y-8">
+                <h2
+                  className="text-xl font-bold text-[var(--ut-yellow)] mb-6"
+                  style={{ fontFamily: "'Press Start 2P', monospace", fontSize: '14px' }}
+                >
+                  EXPERIENCE
+                </h2>
+
+                <div className="space-y-6">
                   {experiences.map((exp, index) => (
                     <motion.div
                       key={index}
-                      initial={{ opacity: 0, x: -50 }}
+                      initial={{ opacity: 0, x: -30 }}
                       animate={{ opacity: 1, x: 0 }}
-                      transition={{ duration: 0.6, delay: 0.4 + index * 0.1 }}
-                      className="pixel-card rounded-2xl p-6"
+                      transition={{ duration: 0.5, delay: 0.3 + index * 0.1 }}
+                      className="undertale-box p-6 group"
                     >
-                      <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-4">
+                      <div className="flex flex-col md:flex-row md:items-start md:justify-between mb-4">
                         <div>
-                          <h3 className="text-xl font-semibold text-[var(--foreground)]">
+                          <h3
+                            className="text-lg font-semibold text-white mb-1"
+                            style={{ fontFamily: 'VT323, monospace', fontSize: '22px' }}
+                          >
                             {exp.title}
                           </h3>
-                          <p className="text-lg text-[var(--foreground-soft)] font-medium">
+                          <p
+                            className="text-[var(--ut-yellow)]"
+                            style={{ fontFamily: 'VT323, monospace' }}
+                          >
                             {exp.company}
                           </p>
                         </div>
                         <div className="mt-2 md:mt-0 text-right">
-                          <p className="text-[var(--foreground-muted)] pixel-text">{exp.period}</p>
-                          <p className="text-sm text-[var(--foreground-muted)]">{exp.location}</p>
+                          <p
+                            className="text-white/70"
+                            style={{ fontFamily: 'VT323, monospace' }}
+                          >
+                            {exp.period}
+                          </p>
+                          <p
+                            className="text-white/50 text-sm"
+                            style={{ fontFamily: 'VT323, monospace' }}
+                          >
+                            {exp.location}
+                          </p>
                         </div>
                       </div>
-                      <p className="text-[var(--foreground-soft)] mb-4 leading-relaxed">
+
+                      <p
+                        className="text-white/80 mb-4 leading-relaxed"
+                        style={{ fontFamily: 'VT323, monospace', fontSize: '18px' }}
+                      >
+                        <span className="text-[var(--ut-yellow)]">* </span>
                         {exp.description}
                       </p>
-                    <div className="flex flex-wrap gap-2">
-                      {exp.technologies.map((tech) => (
-                        <span
-                          key={tech}
-                          className="stardew-chip"
-                        >
-                          {tech}
-                        </span>
+
+                      <div className="flex flex-wrap gap-2">
+                        {exp.technologies.map((tech) => (
+                          <span
+                            key={tech}
+                            className="px-2 py-1 border border-white/40 text-white/80 text-xs"
+                            style={{ fontFamily: 'VT323, monospace' }}
+                          >
+                            {tech}
+                          </span>
                         ))}
                       </div>
                     </motion.div>
@@ -154,39 +186,55 @@ export default function Resume() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.6 }}
               >
-                <h2 className="text-3xl font-bold gradient-text pixel-text mb-8">Education</h2>
-                <div className="space-y-6">
+                <h2
+                  className="text-xl font-bold text-[var(--ut-yellow)] mb-6"
+                  style={{ fontFamily: "'Press Start 2P', monospace", fontSize: '14px' }}
+                >
+                  EDUCATION
+                </h2>
+
+                <div className="space-y-4">
                   {education.map((edu, index) => (
                     <motion.div
                       key={index}
-                      initial={{ opacity: 0, x: -50 }}
+                      initial={{ opacity: 0, x: -30 }}
                       animate={{ opacity: 1, x: 0 }}
-                      transition={{ duration: 0.6, delay: 0.8 + index * 0.1 }}
-                      className="pixel-card rounded-2xl p-6"
+                      transition={{ duration: 0.5, delay: 0.7 + index * 0.1 }}
+                      className="undertale-box p-6"
                     >
                       <div className="flex flex-col md:flex-row md:items-center md:justify-between">
                         <div>
-                          <h3 className="text-xl font-semibold text-[var(--foreground)] mb-1">
+                          <h3
+                            className="text-lg font-semibold text-white mb-1"
+                            style={{ fontFamily: 'VT323, monospace', fontSize: '20px' }}
+                          >
                             {edu.degree}
                           </h3>
-                          <p className="text-lg text-[var(--foreground-soft)] font-medium">
+                          <p
+                            className="text-[var(--ut-yellow)]"
+                            style={{ fontFamily: 'VT323, monospace' }}
+                          >
                             {edu.school}
                           </p>
                         </div>
                         <div className="mt-2 md:mt-0 text-right">
-                          <p className="text-[var(--foreground-muted)] pixel-text">{edu.period}</p>
-                          <p className="text-sm text-[var(--foreground-muted)]">{edu.location}</p>
-                          <p className="text-sm font-medium">
-                            GPA: {edu.gpa === 'unknown yet' ? (
-                              <span className="relative inline-block">
-                                <span className="bg-gradient-to-r from-[#f7d891] via-[#f5c973] to-[#d99a4d] bg-clip-text text-transparent animate-pulse">
-                                  {edu.gpa}
-                                </span>
-                                <span className="absolute -inset-1 bg-gradient-to-r from-[#f7d891]/20 via-[#f5c973]/20 to-[#d99a4d]/20 rounded blur animate-pulse"></span>
-                              </span>
-                            ) : (
-                              <span className="text-[var(--foreground)]">{edu.gpa}</span>
-                            )}
+                          <p
+                            className="text-white/70"
+                            style={{ fontFamily: 'VT323, monospace' }}
+                          >
+                            {edu.period}
+                          </p>
+                          <p
+                            className="text-white/50"
+                            style={{ fontFamily: 'VT323, monospace' }}
+                          >
+                            {edu.location}
+                          </p>
+                          <p
+                            className={`mt-1 ${edu.gpa === '???' ? 'text-[var(--ut-yellow)] animate-pulse' : 'text-white'}`}
+                            style={{ fontFamily: 'VT323, monospace' }}
+                          >
+                            GPA: {edu.gpa}
                           </p>
                         </div>
                       </div>
@@ -196,31 +244,62 @@ export default function Resume() {
               </motion.section>
             </div>
 
-            {/* Sidebar */}
+            {/* Sidebar - Skills */}
             <div className="lg:col-span-1">
               <motion.section
                 initial={{ opacity: 0, y: 50 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 1.0 }}
-                className="pixel-card rounded-2xl p-6 sticky top-24"
+                transition={{ duration: 0.8, delay: 0.8 }}
+                className="undertale-box p-6 sticky top-24"
               >
-                <h2 className="text-2xl font-bold gradient-text pixel-text mb-6">Skills</h2>
+                <h2
+                  className="text-lg font-bold text-[var(--ut-yellow)] mb-6"
+                  style={{ fontFamily: "'Press Start 2P', monospace", fontSize: '12px' }}
+                >
+                  EQUIPPED SKILLS
+                </h2>
+
                 <div className="space-y-6">
                   {skills.map((skillGroup, index) => (
                     <motion.div
                       key={skillGroup.category}
                       initial={{ opacity: 0, y: 20 }}
                       animate={{ opacity: 1, y: 0 }}
-                      transition={{ duration: 0.6, delay: 1.2 + index * 0.1 }}
+                      transition={{ duration: 0.5, delay: 0.9 + index * 0.1 }}
                     >
-                      <h3 className="text-sm font-semibold text-[var(--foreground)] mb-3 uppercase tracking-wider pixel-text">
-                        {skillGroup.category}
-                      </h3>
-                      <div className="flex flex-wrap gap-2">
+                      {/* Skill category with level bar */}
+                      <div className="flex items-center justify-between mb-2">
+                        <h3
+                          className="text-white text-sm"
+                          style={{ fontFamily: "'Press Start 2P', monospace", fontSize: '10px' }}
+                        >
+                          {skillGroup.category}
+                        </h3>
+                        <span
+                          className="text-white/50 text-xs"
+                          style={{ fontFamily: 'VT323, monospace' }}
+                        >
+                          LV {skillGroup.level}
+                        </span>
+                      </div>
+
+                      {/* Stat bar */}
+                      <div className="h-3 border border-white/50 mb-3">
+                        <motion.div
+                          className="h-full bg-[var(--ut-yellow)]"
+                          initial={{ width: 0 }}
+                          animate={{ width: `${skillGroup.level}%` }}
+                          transition={{ duration: 0.8, delay: 1 + index * 0.1 }}
+                        />
+                      </div>
+
+                      {/* Skill items */}
+                      <div className="flex flex-wrap gap-1.5">
                         {skillGroup.items.map((skill) => (
                           <span
                             key={skill}
-                            className="stardew-chip"
+                            className="px-2 py-0.5 border border-white/30 text-white/70 text-xs"
+                            style={{ fontFamily: 'VT323, monospace' }}
                           >
                             {skill}
                           </span>
@@ -230,19 +309,22 @@ export default function Resume() {
                   ))}
                 </div>
 
+                {/* Download Button */}
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, delay: 1.8 }}
-                  className="mt-8 pt-6 border-t border-[rgba(130,240,255,0.22)]"
+                  transition={{ duration: 0.6, delay: 1.4 }}
+                  className="mt-8 pt-6 border-t border-white/20"
                 >
                   <motion.a
                     href="/resume.pdf"
-                    whileHover={{ scale: 1.05, y: -2 }}
-                    whileTap={{ scale: 0.95 }}
-                    className="stardew-button w-full justify-center"
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
+                    className="flex items-center justify-center gap-2 w-full px-4 py-3 border-2 border-[var(--ut-yellow)] text-[var(--ut-yellow)] hover:bg-[var(--ut-yellow)] hover:text-black transition-all"
+                    style={{ fontFamily: 'VT323, monospace', fontSize: '18px' }}
                   >
-                    Download PDF
+                    <span>❤</span>
+                    DOWNLOAD PDF
                   </motion.a>
                 </motion.div>
               </motion.section>

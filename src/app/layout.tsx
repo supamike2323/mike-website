@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { Analytics } from '@/components/Analytics';
-import { FontToggle } from '@/components/FontToggle';
 
 export const metadata: Metadata = {
   title: "Mike Deng",
@@ -22,14 +21,14 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="scroll-smooth">
-      <body className="antialiased text-[var(--foreground)] transition-colors duration-300 relative">
-        <div className="fixed inset-0 bg-[var(--background-overlay)] pointer-events-none" />
-
+      <body
+        className="antialiased bg-black text-white transition-colors duration-300 relative"
+        style={{ fontFamily: 'VT323, monospace' }}
+      >
         {/* Content */}
         <div className="relative min-h-screen flex flex-col">
           {children}
         </div>
-        <FontToggle />
         <Analytics />
       </body>
     </html>

@@ -5,59 +5,92 @@ import Link from 'next/link';
 import { Navigation } from '@/components/Navigation';
 import { Hero } from '@/components/Hero';
 import { ContactIcons } from '@/components/ContactIcons';
+import { Starfield } from '@/components/Starfield';
 
 export default function Home() {
   return (
-    <div className="relative overflow-hidden">
+    <div className="relative overflow-hidden min-h-screen">
+      <Starfield />
       <Navigation />
 
       <main className="relative">
         <Hero />
-        
-        {/* Quick Navigation Section */}
-        <motion.section 
-          className="py-20 px-4 max-w-6xl mx-auto"
+
+        {/* Quick Navigation Section - Undertale Battle Menu Style */}
+        <motion.section
+          className="py-20 px-4 max-w-4xl mx-auto"
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.4 }}
         >
-          <div className="absolute inset-0 pointer-events-none">
-            <div className="hidden md:block absolute -top-10 left-10 h-16 w-40 bg-[rgba(11,44,52,0.82)] border-[3px] border-[var(--chip-border)] shadow-[4px_4px_0_rgba(2,17,20,0.7)] rotate-[-4deg]" />
-            <div className="hidden md:block absolute -bottom-12 right-12 h-16 w-40 bg-[rgba(11,44,52,0.82)] border-[3px] border-[var(--chip-border)] shadow-[4px_4px_0_rgba(2,17,20,0.7)] rotate-[5deg]" />
-          </div>
-          <div className="relative grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+          {/* Section Header */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.6 }}
+            className="text-center mb-12"
+          >
+            <span
+              className="text-[var(--ut-yellow)] text-xl"
+              style={{ fontFamily: 'VT323, monospace' }}
+            >
+              * What will you do?
+            </span>
+          </motion.div>
+
+          {/* Menu Grid */}
+          <div className="grid md:grid-cols-2 gap-6">
             {[
-              { href: '/about', title: 'About', desc: 'Learn more about me', icon: '👨‍💻' },
-              { href: '/projects', title: 'Projects', desc: 'See my work', icon: '🚀' },
-              { href: '/resume', title: 'Resume', desc: 'My experience', icon: '📄' },
-              { href: '/contact', title: 'Contact', desc: 'Get in touch', icon: '📧' },
+              { href: '/about', title: 'CHECK', desc: 'Learn about my stats', icon: '📊' },
+              { href: '/projects', title: 'ITEMS', desc: 'View my collection', icon: '🎒' },
+              { href: '/resume', title: 'STATS', desc: 'See my experience', icon: '⚔️' },
+              { href: '/contact', title: 'TALK', desc: 'Say hello!', icon: '💬' },
             ].map((item, index) => (
               <motion.div
                 key={item.href}
-                initial={{ opacity: 0, y: 50 }}
+                initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.6 + index * 0.1 }}
-                whileHover={{ y: -5 }}
+                transition={{ duration: 0.5, delay: 0.7 + index * 0.1 }}
+                whileHover={{ scale: 1.02 }}
                 className="group"
               >
                 <Link href={item.href}>
-                  <div className="pixel-card p-6 transition-transform duration-300 hover:-translate-y-3">
-                    <div className="text-4xl mb-4 group-hover:scale-110 transition-transform duration-300">
-                      {item.icon}
+                  <div className="undertale-box p-6 transition-all duration-200 hover:border-[var(--ut-yellow)] hover:shadow-[0_0_25px_rgba(255,255,0,0.2)] cursor-pointer">
+                    <div className="flex items-start gap-4">
+                      {/* Soul cursor on hover */}
+                      <motion.span
+                        className="text-[var(--ut-red)] opacity-0 group-hover:opacity-100 transition-opacity mt-1"
+                        animate={{ x: [0, 3, 0] }}
+                        transition={{ duration: 0.5, repeat: Infinity }}
+                      >
+                        ❤
+                      </motion.span>
+
+                      <div className="flex-1">
+                        <div className="flex items-center gap-3 mb-2">
+                          <span className="text-2xl">{item.icon}</span>
+                          <h3
+                            className="text-xl text-white group-hover:text-[var(--ut-yellow)] transition-colors"
+                            style={{ fontFamily: "'Press Start 2P', monospace", fontSize: '14px' }}
+                          >
+                            {item.title}
+                          </h3>
+                        </div>
+                        <p
+                          className="text-white/70 group-hover:text-white/90 transition-colors"
+                          style={{ fontFamily: 'VT323, monospace', fontSize: '18px' }}
+                        >
+                          {item.desc}
+                        </p>
+                      </div>
                     </div>
-                    <h3 className="text-xl font-semibold mb-2 pixel-text text-[var(--foreground)]">
-                      {item.title}
-                    </h3>
-                    <p className="text-[var(--foreground-soft)] text-sm font-semibold">
-                      {item.desc}
-                    </p>
                   </div>
                 </Link>
               </motion.div>
             ))}
           </div>
         </motion.section>
-        
+
         <ContactIcons />
       </main>
     </div>

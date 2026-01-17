@@ -21,7 +21,17 @@ export function ProjectDetailClient({ project }: ProjectDetailClientProps) {
       </div>
 
       <main className="relative pt-24 pb-16 px-4">
-        <div className="max-w-6xl mx-auto">
+        <motion.div
+          aria-hidden
+          className="pointer-events-none absolute inset-0"
+          animate={{ opacity: [0.1, 0.32, 0.14] }}
+          transition={{ duration: 18, repeat: Infinity, ease: 'easeInOut' }}
+          style={{
+            background:
+              'radial-gradient(circle at 18% 32%, rgba(130,240,255,0.14), transparent 60%), radial-gradient(circle at 82% 74%, rgba(158,118,255,0.12), transparent 55%)',
+          }}
+        />
+        <div className="relative z-10 max-w-6xl mx-auto">
           {/* Back button */}
           <motion.div
             initial={{ opacity: 0, x: -20 }}

@@ -2,6 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Undertale-style pixel fonts */
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap');
+
 @font-face {
   font-family: 'SVThin';
   src: url('/fonts/svthin.otf') format('opentype');
@@ -11,228 +14,621 @@
 }
 
 :root {
-  --background: #081e23;
-  --background-overlay: rgba(4, 18, 22, 0.68);
-  --foreground: #e9f7fa;
-  --foreground-soft: rgba(233, 247, 250, 0.78);
-  --foreground-muted: rgba(213, 236, 240, 0.65);
-  --accent: #7de3f2;
-  --accent-strong: #3fb4c4;
-  --accent-deep: #125864;
-  --stardew-wood: #7de3f2;
-  --stardew-wood-dark: #b6f5ff;
-  --stardew-gold: #82f0ff;
-  --stardew-water: #3fb4c4;
-  --stardew-grass: #2f9f9f;
-  --stardew-parchment: rgba(11, 42, 49, 0.85);
-  --stardew-cloud: rgba(255, 255, 255, 0.12);
-  --stardew-shadow: rgba(4, 16, 19, 0.6);
-  --chip-border: rgba(130, 240, 255, 0.55);
-  --chip-bg: rgba(11, 53, 61, 0.82);
+  /* Undertale Core Palette */
+  --ut-black: #000000;
+  --ut-void: #0d0d0d;
+  --ut-white: #ffffff;
+  --ut-yellow: #ffff00;
+  --ut-yellow-soft: #e8e800;
+  --ut-red: #ff0000;
+  --ut-red-soul: #ff0000;
+  --ut-red-dark: #cc0000;
+  --ut-blue: #00a2e8;
+  --ut-orange: #ff6600;
+  --ut-cyan: #00ffff;
+
+  /* Semantic Colors */
+  --background: var(--ut-black);
+  --background-overlay: rgba(0, 0, 0, 0.92);
+  --foreground: var(--ut-white);
+  --foreground-soft: rgba(255, 255, 255, 0.9);
+  --foreground-muted: rgba(255, 255, 255, 0.75);
+  --accent: var(--ut-yellow);
+  --accent-hover: var(--ut-yellow-soft);
+  --soul-color: var(--ut-red);
+
+  /* UI Elements */
+  --box-border: var(--ut-white);
+  --box-bg: var(--ut-black);
+  --menu-highlight: var(--ut-yellow);
+  --menu-bg: transparent;
+
+  /* Fonts */
+  --font-pixel: 'Press Start 2P', 'VT323', monospace;
+  --font-body: 'VT323', 'Press Start 2P', monospace;
 }
 
 html {
-  --font-body: 'system-ui', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-body: 'VT323', monospace;
+  font-size: 18px;
+  /* Base size increase for visibility */
+  letter-spacing: 0.03em;
 }
 
-html[data-font='svthin'] {
-  --font-body: 'SVThin', 'system-ui', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #081e23;
-    --background-overlay: rgba(4, 18, 22, 0.78);
-    --foreground: #e9f7fa;
-    --foreground-soft: rgba(233, 247, 250, 0.78);
-    --foreground-muted: rgba(213, 236, 240, 0.65);
-    --accent: #7de3f2;
-    --accent-strong: #3fb4c4;
-    --accent-deep: #125864;
-    --stardew-wood: #7de3f2;
-    --stardew-wood-dark: #b6f5ff;
-    --stardew-gold: #82f0ff;
-    --stardew-parchment: rgba(11, 42, 49, 0.88);
-    --stardew-cloud: rgba(255, 255, 255, 0.1);
-    --stardew-shadow: rgba(4, 16, 19, 0.65);
-    --chip-border: rgba(130, 240, 255, 0.55);
-    --chip-bg: rgba(11, 53, 61, 0.82);
-  }
+html[data-font='pixel'] {
+  --font-body: 'Press Start 2P', monospace;
 }
 
 @layer base {
   * {
-    border-color: rgba(130, 240, 255, 0.2);
+    border-color: rgba(255, 255, 255, 0.2);
   }
 
   body {
     font-family: var(--font-body);
-    background: var(--background) url('/forest-background.png') center/cover fixed no-repeat;
+    background: var(--background);
     color: var(--foreground);
     min-height: 100vh;
     overflow-x: hidden;
+    image-rendering: pixelated;
+    cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Cellipse cx='16' cy='14' rx='12' ry='10' fill='white' stroke='black' stroke-width='1'/%3E%3Ccircle cx='10' cy='12' r='4' fill='black'/%3E%3Ccircle cx='22' cy='12' r='4' fill='black'/%3E%3Ccircle cx='22' cy='12' r='2' fill='%2300bfff'/%3E%3Cellipse cx='16' cy='18' rx='2' ry='1' fill='black'/%3E%3Cpath d='M8 22 Q16 26 24 22 L24 24 Q16 28 8 24 Z' fill='white' stroke='black' stroke-width='0.5'/%3E%3Cline x1='11' y1='22' x2='11' y2='25' stroke='black' stroke-width='1'/%3E%3Cline x1='16' y1='23' x2='16' y2='26' stroke='black' stroke-width='1'/%3E%3Cline x1='21' y1='22' x2='21' y2='25' stroke='black' stroke-width='1'/%3E%3C/svg%3E") 16 16, auto;
+  }
+
+  /* Custom cursors for interactive elements */
+  a,
+  button,
+  [role="button"],
+  input[type="submit"],
+  .cursor-pointer {
+    cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Cellipse cx='16' cy='14' rx='12' ry='10' fill='white' stroke='black' stroke-width='1'/%3E%3Ccircle cx='10' cy='12' r='4' fill='black'/%3E%3Ccircle cx='22' cy='12' r='4' fill='black'/%3E%3Ccircle cx='22' cy='12' r='2' fill='%2300bfff'/%3E%3Cellipse cx='16' cy='18' rx='2' ry='1' fill='black'/%3E%3Cpath d='M8 22 Q16 26 24 22 L24 24 Q16 28 8 24 Z' fill='white' stroke='black' stroke-width='0.5'/%3E%3Cline x1='11' y1='22' x2='11' y2='25' stroke='black' stroke-width='1'/%3E%3Cline x1='16' y1='23' x2='16' y2='26' stroke='black' stroke-width='1'/%3E%3Cline x1='21' y1='22' x2='21' y2='25' stroke='black' stroke-width='1'/%3E%3C/svg%3E") 16 16, pointer;
+  }
+
+  /* Default link styling */
+  a {
+    transition: color 0.15s ease;
   }
 }
 
 @layer components {
-  .pixel-card {
-    background-color: var(--stardew-parchment);
-    border: 3px solid var(--chip-border);
-    box-shadow: 6px 6px 0 rgba(2, 17, 20, 0.75), 0 20px 40px var(--stardew-shadow);
+
+  /* ═══════════════════════════════════════════
+     UNDERTALE DIALOG BOX
+     Classic white-bordered box on black
+  ═══════════════════════════════════════════ */
+  .undertale-box {
+    background-color: var(--ut-black);
+    border: 4px solid var(--ut-white);
+    box-shadow:
+      inset 0 0 0 2px var(--ut-black),
+      0 0 20px rgba(255, 255, 255, 0.1);
     color: var(--foreground);
-    image-rendering: pixelated;
+    position: relative;
   }
 
-  .glass-effect {
-    background: rgba(7, 31, 37, 0.78);
-    border: 3px solid rgba(130, 240, 255, 0.22);
-    box-shadow: 0 22px 44px rgba(1, 12, 15, 0.55);
-    backdrop-filter: blur(6px);
+  .undertale-box::before {
+    content: '';
+    position: absolute;
+    inset: 2px;
+    border: 2px solid var(--ut-white);
+    pointer-events: none;
+    opacity: 0.3;
+  }
+
+  /* ═══════════════════════════════════════════
+     SOUL HEART - The red determination heart
+  ═══════════════════════════════════════════ */
+  .soul-heart {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    background: var(--ut-red);
+    clip-path: polygon(50% 100%, 0% 35%, 25% 0%, 50% 20%, 75% 0%, 100% 35%);
+    animation: soulPulse 1.2s ease-in-out infinite;
+  }
+
+  .soul-heart-lg {
+    width: 24px;
+    height: 24px;
+  }
+
+  .soul-cursor {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .soul-cursor::before {
+    content: '';
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    background: var(--ut-red);
+    clip-path: polygon(50% 100%, 0% 35%, 25% 0%, 50% 20%, 75% 0%, 100% 35%);
+  }
+
+  /* ═══════════════════════════════════════════
+     BATTLE MENU ITEMS
+     Interactive menu selections like in battles
+  ═══════════════════════════════════════════ */
+  .battle-menu {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    justify-content: center;
+  }
+
+  .battle-menu-item {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 24px;
+    background: transparent;
     color: var(--foreground);
+    border: 3px solid var(--ut-white);
+    font-family: var(--font-pixel);
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    position: relative;
+  }
+
+  .battle-menu-item:hover,
+  .battle-menu-item:focus {
+    color: var(--ut-yellow);
+    border-color: var(--ut-yellow);
+    text-shadow: 0 0 10px var(--ut-yellow);
+    box-shadow: 0 0 15px rgba(255, 255, 0, 0.3);
+  }
+
+  .battle-menu-item.active {
+    color: var(--ut-yellow);
+    border-color: var(--ut-yellow);
+  }
+
+  /* ═══════════════════════════════════════════
+     PIXEL TEXT STYLES
+  ═══════════════════════════════════════════ */
+  .pixel-text {
+    font-family: var(--font-pixel);
+    letter-spacing: 0.04em;
+  }
+
+  .determination-text {
+    font-family: var(--font-body);
+    font-size: 1.6rem;
+    line-height: 1.8;
+    letter-spacing: 0.04em;
   }
 
   .gradient-text {
-    background-image: linear-gradient(180deg, #ecfeff 0%, #a6f7ff 45%, #7de3f2 100%);
+    background-image: linear-gradient(180deg, #ffffff 0%, #ffff00 50%, #ffffff 100%);
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
-    text-shadow: 0 2px 0 rgba(3, 15, 18, 0.45), 0 8px 18px rgba(3, 18, 22, 0.35);
+    animation: textShimmer 3s ease-in-out infinite;
   }
 
-  .pixel-text {
+  .yellow-text {
+    color: var(--ut-yellow);
+    text-shadow: 0 0 8px rgba(255, 255, 0, 0.4);
+  }
+
+  /* ═══════════════════════════════════════════
+     TYPEWRITER EFFECT
+  ═══════════════════════════════════════════ */
+  .typewriter {
+    overflow: hidden;
+    border-right: 3px solid var(--ut-white);
+    white-space: nowrap;
+    animation:
+      typing 3.5s steps(40, end),
+      blink-caret 0.75s step-end infinite;
+  }
+
+  .typewriter-cursor {
+    display: inline-block;
+    width: 12px;
+    height: 20px;
+    background: var(--ut-white);
+    margin-left: 4px;
+    animation: blink-caret 0.75s step-end infinite;
+  }
+
+  /* ═══════════════════════════════════════════
+     STARFIELD BACKGROUND
+  ═══════════════════════════════════════════ */
+  .starfield {
+    position: fixed;
+    inset: 0;
+    background: var(--ut-black);
+    overflow: hidden;
+    z-index: -1;
+  }
+
+  .star {
+    position: absolute;
+    width: 2px;
+    height: 2px;
+    background: var(--ut-white);
+    border-radius: 50%;
+    animation: twinkleStar 4s ease-in-out infinite;
+  }
+
+  .star.large {
+    width: 3px;
+    height: 3px;
+    box-shadow: 0 0 6px rgba(255, 255, 255, 0.8);
+  }
+
+  .star.yellow {
+    background: var(--ut-yellow);
+    box-shadow: 0 0 4px rgba(255, 255, 0, 0.6);
+  }
+
+  /* ═══════════════════════════════════════════
+     NAV BAR - Undertale Style
+  ═══════════════════════════════════════════ */
+  .ut-nav {
+    background: rgba(0, 0, 0, 0.95);
+    border-bottom: 3px solid var(--ut-white);
+  }
+
+  .ut-nav-item {
     font-family: var(--font-body);
-    letter-spacing: 0.02em;
+    font-size: 1.25rem;
+    color: var(--foreground);
+    padding: 8px 16px;
+    transition: all 0.15s ease;
+    position: relative;
   }
 
-  .floating-animation {
-    animation: pixelFloat 5s ease-in-out infinite;
+  .ut-nav-item:hover {
+    color: var(--ut-yellow);
+    text-shadow: 0 0 10px rgba(255, 255, 0, 0.5);
   }
 
-  .pixel-glow {
-    text-shadow: 0 0 8px rgba(130, 240, 255, 0.45);
+  .ut-nav-item.active::before {
+    content: '❤';
+    position: absolute;
+    left: -4px;
+    color: var(--ut-red);
+    font-size: 0.75rem;
   }
 
+  /* ═══════════════════════════════════════════
+     CARDS - Pixel Card Style
+  ═══════════════════════════════════════════ */
+  .pixel-card {
+    background-color: var(--ut-black);
+    border: 3px solid var(--ut-white);
+    color: var(--foreground);
+    transition: all 0.2s ease;
+  }
+
+  .pixel-card:hover {
+    border-color: var(--ut-yellow);
+    box-shadow: 0 0 20px rgba(255, 255, 0, 0.2);
+  }
+
+  .glass-effect {
+    background: rgba(0, 0, 0, 0.9);
+    border: 3px solid rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(4px);
+    color: var(--foreground);
+  }
+
+  /* ═══════════════════════════════════════════
+     BUTTONS - Battle Style
+  ═══════════════════════════════════════════ */
+  .ut-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 32px;
+    background: transparent;
+    color: var(--foreground);
+    border: 3px solid var(--ut-white);
+    font-family: var(--font-body);
+    font-size: 1.25rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    cursor: pointer;
+    transition: all 0.15s ease;
+  }
+
+  .ut-button:hover {
+    color: var(--ut-yellow);
+    border-color: var(--ut-yellow);
+    text-shadow: 0 0 10px rgba(255, 255, 0, 0.5);
+    box-shadow: 0 0 20px rgba(255, 255, 0, 0.2);
+  }
+
+  .ut-button:active {
+    transform: scale(0.98);
+  }
+
+  .ut-button-primary {
+    background: var(--ut-yellow);
+    color: var(--ut-black);
+    border-color: var(--ut-yellow);
+  }
+
+  .ut-button-primary:hover {
+    background: var(--ut-white);
+    color: var(--ut-black);
+    border-color: var(--ut-white);
+    text-shadow: none;
+  }
+
+  /* Legacy button support */
   .stardew-button {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    padding: 0.85rem 2.4rem;
-    background: linear-gradient(180deg, #4cd2e4 0%, #258ea0 100%);
+    padding: 12px 32px;
+    background: transparent;
     color: var(--foreground);
-    border: 3px solid rgba(130, 240, 255, 0.65);
-    box-shadow: 4px 4px 0 rgba(2, 17, 20, 0.75), 0 18px 32px rgba(1, 12, 15, 0.5);
+    border: 3px solid var(--ut-white);
     font-family: var(--font-body);
-    font-weight: 600;
+    font-size: 1.25rem;
     text-transform: uppercase;
     letter-spacing: 0.06em;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    transition: all 0.2s ease;
   }
 
   .stardew-button:hover {
-    transform: translateY(-2px);
-    box-shadow: 6px 6px 0 rgba(2, 17, 20, 0.75), 0 24px 36px rgba(1, 12, 15, 0.56);
-  }
-
-  .stardew-button:active {
-    transform: translateY(1px);
-    box-shadow: 2px 2px 0 rgba(2, 17, 20, 0.75), 0 12px 18px rgba(1, 12, 15, 0.4);
+    color: var(--ut-yellow);
+    border-color: var(--ut-yellow);
+    text-shadow: 0 0 10px rgba(255, 255, 0, 0.5);
   }
 
   .stardew-button-secondary {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    padding: 0.85rem 2.4rem;
-    background: linear-gradient(180deg, rgba(14, 62, 70, 0.92) 0%, rgba(12, 48, 56, 0.88) 100%);
-    color: var(--foreground);
-    border: 3px solid rgba(130, 240, 255, 0.35);
-    box-shadow: 4px 4px 0 rgba(2, 17, 20, 0.7), 0 16px 28px rgba(1, 12, 15, 0.48);
+    padding: 12px 32px;
+    background: transparent;
+    color: var(--foreground-soft);
+    border: 2px solid rgba(255, 255, 255, 0.5);
     font-family: var(--font-body);
-    font-weight: 600;
+    font-size: 1.25rem;
     text-transform: uppercase;
     letter-spacing: 0.05em;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    transition: all 0.2s ease;
   }
 
   .stardew-button-secondary:hover {
-    transform: translateY(-2px);
-    box-shadow: 6px 6px 0 rgba(2, 17, 20, 0.75), 0 24px 36px rgba(1, 12, 15, 0.5);
+    color: var(--ut-yellow);
+    border-color: var(--ut-yellow);
   }
 
-  .stardew-chip {
-    background: var(--chip-bg);
-    border: 2px solid var(--chip-border);
+  /* ═══════════════════════════════════════════
+     CHIPS / TAGS
+  ═══════════════════════════════════════════ */
+  .ut-chip {
+    background: transparent;
+    border: 2px solid var(--ut-white);
     color: var(--foreground);
     font-family: var(--font-body);
-    font-size: 0.75rem;
-    padding: 0.35rem 0.75rem;
+    font-size: 0.9rem;
+    padding: 4px 12px;
     letter-spacing: 0.03em;
   }
 
-  .stardew-sky {
-    background: transparent;
+  .ut-chip:hover {
+    border-color: var(--ut-yellow);
+    color: var(--ut-yellow);
   }
 
-  .stardew-clouds {
+  .stardew-chip {
     background: transparent;
+    border: 2px solid rgba(255, 255, 255, 0.6);
+    color: var(--foreground);
+    font-family: var(--font-body);
+    font-size: 0.85rem;
+    padding: 4px 10px;
+    letter-spacing: 0.03em;
   }
 
-  .stardew-hills {
-    background: transparent;
+  /* ═══════════════════════════════════════════
+     ENCOUNTER TEXT - * text appeared!
+  ═══════════════════════════════════════════ */
+  .encounter-text {
+    font-family: var(--font-body);
+    font-size: 1.5rem;
+    color: var(--foreground);
   }
 
-  .stardew-fireflies {
-    background: transparent;
+  .encounter-text::before {
+    content: '* ';
+    color: var(--ut-yellow);
+  }
+
+  /* ═══════════════════════════════════════════
+     STAT BARS (HP, ATK, DEF style)
+  ═══════════════════════════════════════════ */
+  .stat-bar {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-family: var(--font-body);
+  }
+
+  .stat-bar-label {
+    min-width: 60px;
+    color: var(--foreground);
+    font-size: 1rem;
+  }
+
+  .stat-bar-track {
+    flex: 1;
+    height: 16px;
+    background: rgba(255, 255, 255, 0.2);
+    border: 2px solid var(--ut-white);
+  }
+
+  .stat-bar-fill {
+    height: 100%;
+    background: var(--ut-yellow);
+    transition: width 0.5s ease;
+  }
+
+  .stat-bar-fill.hp {
+    background: var(--ut-red);
+  }
+
+  /* ═══════════════════════════════════════════
+     INVENTORY GRID (for projects)
+  ═══════════════════════════════════════════ */
+  .inventory-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 20px;
+  }
+
+  .inventory-item {
+    background: var(--ut-black);
+    border: 3px solid var(--ut-white);
+    padding: 16px;
+    cursor: pointer;
+    transition: all 0.15s ease;
+  }
+
+  .inventory-item:hover {
+    border-color: var(--ut-yellow);
+    box-shadow: 0 0 20px rgba(255, 255, 0, 0.15);
+  }
+
+  .inventory-item.selected {
+    border-color: var(--ut-yellow);
+    box-shadow: 0 0 30px rgba(255, 255, 0, 0.25);
+  }
+
+  /* ═══════════════════════════════════════════
+     FLOATING ANIMATION
+  ═══════════════════════════════════════════ */
+  .floating-animation {
+    animation: pixelFloat 3s ease-in-out infinite;
+  }
+
+  .pixel-glow {
+    text-shadow: 0 0 8px rgba(255, 255, 255, 0.6);
+  }
+}
+
+/* ═══════════════════════════════════════════
+   ANIMATIONS
+═══════════════════════════════════════════ */
+@keyframes soulPulse {
+
+  0%,
+  100% {
+    transform: scale(1);
+    filter: brightness(1);
+  }
+
+  50% {
+    transform: scale(1.1);
+    filter: brightness(1.3);
+  }
+}
+
+@keyframes twinkleStar {
+
+  0%,
+  100% {
+    opacity: 0.3;
+  }
+
+  50% {
+    opacity: 1;
+  }
+}
+
+@keyframes typing {
+  from {
+    width: 0
+  }
+
+  to {
+    width: 100%
+  }
+}
+
+@keyframes blink-caret {
+
+  from,
+  to {
+    border-color: transparent
+  }
+
+  50% {
+    border-color: var(--ut-white)
+  }
+}
+
+@keyframes textShimmer {
+
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
   }
 }
 
 @keyframes pixelFloat {
-  0%, 100% {
+
+  0%,
+  100% {
     transform: translateY(0px);
   }
+
   50% {
-    transform: translateY(-8px);
+    transform: translateY(-6px);
   }
 }
 
-@keyframes stardewCloudDrift {
-  0% {
-    background-position: 0 0, 0 0, 0 0, 0 0;
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
   }
-  100% {
-    background-position: 200px 0, 320px 0, -180px 0, -260px 0;
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
-@keyframes stardewFirefly {
-  0% {
-    transform: translateY(0px);
-    opacity: 0.25;
-  }
-  100% {
-    transform: translateY(-12px);
-    opacity: 0.55;
-  }
-}
-
+/* ═══════════════════════════════════════════
+   SCROLLBAR - Undertale Style
+═══════════════════════════════════════════ */
 ::-webkit-scrollbar {
-  width: 10px;
+  width: 8px;
 }
 
 ::-webkit-scrollbar-track {
-  background: rgba(123, 74, 47, 0.2);
+  background: var(--ut-black);
+  border-left: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: linear-gradient(180deg, #eecb83 0%, #d69a45 100%);
-  border-radius: 999px;
-  border: 2px solid rgba(123, 74, 47, 0.35);
+  background: var(--ut-white);
+  border: 1px solid var(--ut-black);
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(180deg, #f5d99c 0%, #dea353 100%);
+  background: var(--ut-yellow);
 }
 
+/* ═══════════════════════════════════════════
+   UTILITY CLASSES
+═══════════════════════════════════════════ */
 .line-clamp-2 {
   display: -webkit-box;
   -webkit-line-clamp: 2;
@@ -254,6 +650,7 @@ html[data-font='svthin'] {
   overflow: hidden;
 }
 
+/* Smooth transitions */
 * {
-  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+  transition: background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
 }

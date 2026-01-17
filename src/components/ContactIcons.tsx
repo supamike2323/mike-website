@@ -3,76 +3,54 @@
 import { motion } from 'framer-motion';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGithub, faLinkedin, faTwitter } from '@fortawesome/free-brands-svg-icons';
-import { faEnvelope } from '@fortawesome/free-regular-svg-icons';
+import { faEnvelope } from '@fortawesome/free-solid-svg-icons';
 
-const contactData = [
-  {
-    label: 'Email',
-    link: 'mailto:miked232@seas.upenn.edu',
-    icon: faEnvelope,
-  },
-  {
-    label: 'Github',
-    link: 'https://github.com/supamike2323',
-    icon: faGithub,
-  },
-  {
-    label: 'LinkedIn',
-    link: 'https://www.linkedin.com/in/jiaming-deng-mike/',
-    icon: faLinkedin,
-  },
-  {
-    label: 'Twitter',
-    link: 'https://x.com/Dhdhdu32091968',
-    icon: faTwitter,
-  },
-];
+const socialLinks = [
+  { icon: faGithub, href: 'https://github.com/supamike2323', label: 'GitHub' },
+  { icon: faLinkedin, href: 'https://linkedin.com/in/mikedeng', label: 'LinkedIn' },
+  { icon: faTwitter, href: 'https://twitter.com/', label: 'Twitter' },
+  { icon: faEnvelope as typeof faGithub, href: 'mailto:contact@mikedeng.com', label: 'Email' },
+] as const;
 
 export function ContactIcons() {
   return (
-    <motion.section
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 0.8, delay: 1.2 }}
-      className="py-16 px-4"
+    <motion.div
+      initial={{ opacity: 0, y: 30 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6, delay: 1.5 }}
+      className="fixed bottom-8 left-1/2 -translate-x-1/2 z-40"
     >
-      <div className="max-w-4xl mx-auto text-center">
-        <motion.h2
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="text-3xl font-semibold mb-8 pixel-text gradient-text"
-        >
-          Let's Connect
-        </motion.h2>
-        
-        <div className="flex justify-center space-x-6">
-          {contactData.map((contact, index) => (
+      <div className="undertale-box px-6 py-3">
+        <div className="flex items-center gap-6">
+          {socialLinks.map((link, index) => (
             <motion.a
-              key={contact.label}
-              href={contact.link}
+              key={link.label}
+              href={link.href}
               target="_blank"
               rel="noopener noreferrer"
-              initial={{ opacity: 0, y: 50 }}
+              className="group relative"
+              whileHover={{ scale: 1.2 }}
+              whileTap={{ scale: 0.9 }}
+              initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.2 + index * 0.1 }}
-              whileHover={{ 
-                scale: 1.1, 
-                y: -5,
-                transition: { duration: 0.2 }
-              }}
-              whileTap={{ scale: 0.95 }}
-              className="p-4 pixel-card transition-transform duration-300 hover:-translate-y-2 group"
+              transition={{ delay: 1.7 + index * 0.1 }}
             >
               <FontAwesomeIcon
-                icon={contact.icon}
-                className="w-6 h-6 text-[var(--foreground)] group-hover:text-[var(--stardew-gold)] transition-colors duration-300"
+                icon={link.icon}
+                className="w-5 h-5 text-white/70 group-hover:text-[var(--ut-yellow)] transition-colors duration-150"
               />
-              <span className="sr-only">{contact.label}</span>
+
+              {/* Tooltip */}
+              <span
+                className="absolute -top-8 left-1/2 -translate-x-1/2 px-2 py-1 bg-black border border-[var(--ut-yellow)] text-[var(--ut-yellow)] text-xs opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap"
+                style={{ fontFamily: 'VT323, monospace' }}
+              >
+                {link.label}
+              </span>
             </motion.a>
           ))}
         </div>
       </div>
-    </motion.section>
+    </motion.div>
   );
 }

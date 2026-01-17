@@ -46,9 +46,10 @@ export function FontToggle() {
     <button
       type="button"
       onClick={toggleFont}
-      className="fixed bottom-5 right-5 z-[60] inline-flex items-center gap-2 px-4 py-2 rounded-full border-[2px] border-[var(--chip-border)] bg-[rgba(11,44,52,0.85)] text-[var(--foreground)] shadow-[0_12px_24px_rgba(1,12,15,0.4)] hover:translate-y-[-2px] transition-transform duration-200"
+      className="group fixed bottom-5 right-5 z-[60] relative inline-flex items-center gap-2 px-4 py-2 rounded-full border-[2px] border-[var(--chip-border)] bg-[rgba(11,44,52,0.85)] text-[var(--foreground)] shadow-[0_12px_24px_rgba(1,12,15,0.4)] hover:translate-y-[-2px] transition-transform duration-200 overflow-hidden"
       aria-label="Toggle font preference"
     >
+      <span className="pointer-events-none absolute inset-0 bg-gradient-to-r from-[rgba(130,240,255,0.12)] via-transparent to-[rgba(146,118,255,0.12)] opacity-0 group-hover:opacity-100 transition-opacity duration-300" aria-hidden />
       <span className="text-xs uppercase tracking-[0.2em]">Font</span>
       <span className="text-sm font-semibold pixel-text">{LABELS[font]}</span>
     </button>
