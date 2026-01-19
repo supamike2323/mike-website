@@ -18,7 +18,7 @@ export function ContactIcons() {
       initial={{ opacity: 0, y: 30 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6, delay: 1.5 }}
-      className="fixed bottom-8 left-1/2 -translate-x-1/2 z-40"
+      className="fixed bottom-8 right-8 z-40"
     >
       <div className="undertale-box px-6 py-3">
         <div className="flex items-center gap-6">
