@@ -2,18 +2,28 @@
 
 import { motion } from 'framer-motion';
 import Link from 'next/link';
-import { Navigation } from '@/components/layout/Navigation';
+import Image from 'next/image';
 import { Project } from '@/data/projects';
+import { Navigation } from '@/components/layout/Navigation';
+import { Starfield } from '@/components/ui/Starfield';
+import { useMode } from '@/context/ModeContext';
+import { SimpleProjectDetail } from '@/components/simple/SimpleProjectDetail';
 
 interface ProjectDetailClientProps {
   project: Project;
 }
 
 export function ProjectDetailClient({ project }: ProjectDetailClientProps) {
+  const { isSimpleMode } = useMode();
+
+  if (isSimpleMode) {
+    return <SimpleProjectDetail project={project} />;
+  }
+
   return (
     <div className="min-h-screen">
       <Navigation />
-      
+
       {/* Background decorative elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute top-32 right-12 w-80 h-42 bg-[rgba(11,44,52,0.85)] border-[3px] border-[var(--chip-border)] shadow-[8px_8px_0_rgba(2,17,20,0.7)] rotate-[6deg]" />
@@ -100,7 +110,7 @@ export function ProjectDetailClient({ project }: ProjectDetailClientProps) {
               <div className="relative z-10">
                 <div className="w-24 h-24 mx-auto mb-6 bg-[var(--stardew-gold)] flex items-center justify-center shadow-[6px_6px_0_rgba(2,17,20,0.7)] border-[3px] border-[var(--chip-border)] rounded-lg">
                   <svg className="w-12 h-12 text-[var(--accent-deep)]" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"/>
+                    <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z" />
                   </svg>
                 </div>
                 <h2 className="text-2xl font-bold text-[var(--foreground)] pixel-text mb-2">{project.title}</h2>
@@ -124,7 +134,7 @@ export function ProjectDetailClient({ project }: ProjectDetailClientProps) {
                 <p className="text-lg text-[var(--foreground-soft)] leading-relaxed mb-6">
                   {project.desc}
                 </p>
-                
+
                 {/* Technologies */}
                 {project.technologies && (
                   <div className="mb-6">
@@ -186,7 +196,7 @@ export function ProjectDetailClient({ project }: ProjectDetailClientProps) {
                         fill="currentColor"
                         viewBox="0 0 24 24"
                       >
-                        <path d="M12 0C5.374 0 0 5.373 0 12 0 17.302 3.438 21.8 8.207 23.387c.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/>
+                        <path d="M12 0C5.374 0 0 5.373 0 12 0 17.302 3.438 21.8 8.207 23.387c.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z" />
                       </svg>
                     </motion.a>
                   )}
@@ -250,7 +260,7 @@ export function ProjectDetailClient({ project }: ProjectDetailClientProps) {
                         <p className="text-[var(--foreground-muted)] text-xs">
                           {project.publication.venue}
                         </p>
-                        <a 
+                        <a
                           href={project.publication.url}
                           target="_blank"
                           rel="noopener noreferrer"

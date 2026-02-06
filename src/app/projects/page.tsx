@@ -6,9 +6,17 @@ import Link from 'next/link';
 import { Navigation } from '@/components/layout/Navigation';
 import { Starfield } from '@/components/ui/Starfield';
 import projects from '@/data/projects';
+import { useMode } from '@/context/ModeContext';
+import { SimpleProjects } from '@/components/simple/SimpleProjects';
 
 export default function Projects() {
+  const { isSimpleMode } = useMode();
   const [selectedProject, setSelectedProject] = useState<string | null>(null);
+
+  // If in Simple Mode, show the professional view
+  if (isSimpleMode) {
+    return <SimpleProjects />;
+  }
 
   // Sort projects by date (most recent first)
   const sortedProjects = [...projects].sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());

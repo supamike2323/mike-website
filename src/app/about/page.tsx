@@ -5,8 +5,11 @@ import { motion } from 'framer-motion';
 import Markdown from 'markdown-to-jsx';
 import { Navigation } from '@/components/layout/Navigation';
 import { Starfield } from '@/components/ui/Starfield';
+import { useMode } from '@/context/ModeContext';
+import { SimpleAbout } from '@/components/simple/SimpleAbout';
 
 export default function About() {
+  const { isSimpleMode } = useMode();
   const [markdown, setMarkdown] = useState('');
   const [loading, setLoading] = useState(true);
 
@@ -23,6 +26,10 @@ export default function About() {
         setLoading(false);
       });
   }, []);
+
+  if (isSimpleMode) {
+    return <SimpleAbout markdown={markdown} loading={loading} />;
+  }
 
   const wordCount = markdown.split(/\s+/)
     .map((s) => s.replace(/\W/g, ''))

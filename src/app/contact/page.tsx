@@ -6,41 +6,49 @@ import { faGithub, faLinkedin } from '@fortawesome/free-brands-svg-icons';
 import { faEnvelope, faLocationDot } from '@fortawesome/free-solid-svg-icons';
 import { Navigation } from '@/components/layout/Navigation';
 import { Starfield } from '@/components/ui/Starfield';
+import { useMode } from '@/context/ModeContext';
+import { SimpleContact } from '@/components/simple/SimpleContact';
 
 const contactMethods = [
   {
     icon: faEnvelope,
-    label: 'Email',
-    value: 'miked232@seas.upenn.edu',
-    href: 'mailto:miked232@seas.upenn.edu',
-    action: 'SEND',
+    label: 'EMAIL',
+    value: 'mikedeng@uw.edu',
+    href: 'mailto:mikedeng@uw.edu',
+    description: 'Send a message'
   },
   {
     icon: faLinkedin,
-    label: 'LinkedIn',
-    value: '/in/jiaming-deng-mike',
-    href: 'https://www.linkedin.com/in/jiaming-deng-mike/',
-    action: 'CONNECT',
+    label: 'LINKEDIN',
+    value: 'linkedin.com/in/mikedeng',
+    href: 'https://www.linkedin.com/in/mikedeng/',
+    description: 'Connect professionally'
   },
   {
     icon: faGithub,
-    label: 'GitHub',
-    value: '/supamike2323',
+    label: 'GITHUB',
+    value: 'github.com/supamike2323',
     href: 'https://github.com/supamike2323',
-    action: 'VIEW',
+    description: 'View source codes'
   },
   {
     icon: faLocationDot,
-    label: 'Location',
-    value: 'Philadelphia, PA',
+    label: 'LOCATION',
+    value: 'Seattle, WA',
     href: null,
-    action: 'LOCATE',
-  },
-] as const;
+    description: 'Current base'
+  }
+];
 
 type ContactMethodType = typeof contactMethods[number];
 
 export default function Contact() {
+  const { isSimpleMode } = useMode();
+
+  if (isSimpleMode) {
+    return <SimpleContact />;
+  }
+
   return (
     <div className="min-h-screen">
       <Starfield />
@@ -132,6 +140,27 @@ export default function Contact() {
               SEND AN EMAIL
             </motion.a>
           </motion.div>
+
+          {/* Social Links - Simplified */}
+          <div className="flex justify-center gap-8">
+            {contactMethods.filter(m => m.href).map((method, index) => (
+              <motion.a
+                key={method.label}
+                href={method.href!}
+                target="_blank"
+                rel="noopener noreferrer"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.8 + index * 0.1 }}
+                whileHover={{ y: -5 }}
+                className="text-white/50 hover:text-[var(--ut-yellow)] transition-colors"
+                title={method.label}
+              >
+                <span className="sr-only">{method.label}</span>
+                <FontAwesomeIcon icon={method.icon as any} className="text-2xl" />
+              </motion.a>
+            ))}
+          </div>
         </div>
       </main>
     </div>
@@ -150,7 +179,7 @@ function ContactOption({ method }: { method: ContactMethodType }) {
         {/* Icon */}
         <div className="w-10 h-10 flex items-center justify-center border border-white/30 group-hover:border-[var(--ut-yellow)]">
           <FontAwesomeIcon
-            icon={method.icon as typeof faGithub}
+            icon={method.icon as any}
             className="w-5 h-5 text-white/70 group-hover:text-[var(--ut-yellow)] transition-colors"
           />
         </div>
@@ -177,7 +206,7 @@ function ContactOption({ method }: { method: ContactMethodType }) {
             className="text-white/30 group-hover:text-[var(--ut-yellow)] transition-colors"
             style={{ fontFamily: 'VT323, monospace', fontSize: '14px' }}
           >
-            [{method.action}]
+            [{method.description}]
           </span>
         )}
       </div>
