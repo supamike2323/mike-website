@@ -7,7 +7,7 @@ const nextConfig: NextConfig = {
   },
   output: 'export',
   trailingSlash: true,
-  basePath: process.env.NODE_ENV === 'production' ? '' : '',
+  basePath: process.env.NODE_ENV === 'production' ? '/mike-website' : '',
   outputFileTracingRoot: __dirname,
   experimental: {
     optimizePackageImports: ['@fortawesome/react-fontawesome', '@fortawesome/free-brands-svg-icons', '@fortawesome/free-regular-svg-icons', '@fortawesome/free-solid-svg-icons']

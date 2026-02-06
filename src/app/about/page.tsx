@@ -11,7 +11,8 @@ export default function About() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch('/about.md')
+    const basePath = process.env.NODE_ENV === 'production' ? '/mike-website' : '';
+    fetch(`${basePath}/about.md`)
       .then((res) => res.text())
       .then((text) => {
         setMarkdown(text);
