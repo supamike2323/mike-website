@@ -22,6 +22,15 @@ export function ModeProvider({ children }: { children: React.ReactNode }) {
         setMounted(true);
     }, []);
 
+    // Toggle body class for global styles (cursor, etc.)
+    useEffect(() => {
+        if (isSimpleMode) {
+            document.body.classList.remove('fancy-mode');
+        } else {
+            document.body.classList.add('fancy-mode');
+        }
+    }, [isSimpleMode]);
+
     const toggleMode = () => {
         setIsSimpleMode((prev) => {
             const newMode = !prev;
