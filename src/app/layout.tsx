@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import { Analytics } from '@/components/Analytics';
+import { Analytics } from '@/components/features/analytics/Analytics';
+import { ModeProvider } from '@/context/ModeContext';
+import { ModeToggle } from '@/components/ui/ModeToggle';
 
 export const metadata: Metadata = {
   title: "Mike Deng",
@@ -25,11 +27,14 @@ export default function RootLayout({
         className="antialiased bg-black text-white transition-colors duration-300 relative"
         style={{ fontFamily: 'VT323, monospace' }}
       >
-        {/* Content */}
-        <div className="relative min-h-screen flex flex-col">
-          {children}
-        </div>
-        <Analytics />
+        <ModeProvider>
+          {/* Content */}
+          <div className="relative min-h-screen flex flex-col">
+            {children}
+          </div>
+          <ModeToggle />
+          <Analytics />
+        </ModeProvider>
       </body>
     </html>
   );

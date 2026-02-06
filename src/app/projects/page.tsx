@@ -3,8 +3,8 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
-import { Navigation } from '@/components/Navigation';
-import { Starfield } from '@/components/Starfield';
+import { Navigation } from '@/components/layout/Navigation';
+import { Starfield } from '@/components/ui/Starfield';
 import projects from '@/data/projects';
 
 export default function Projects() {

@@ -27,11 +27,11 @@ const projects: Project[] = [
   {
     id: 'cisco-multiagent-ai',
     title: 'Multi-Agent AI System with LangGraph',
-    subtitle: 'LLM-powered Data Analysis Assistant at Cisco',
+    subtitle: 'Data Engineering Intern at Cisco',
     image: '/images/projects/cisco-ai.png',
     date: '2025-06-01',
-    desc: 'Built an LLM-powered data analysis assistant featuring structured agent orchestration, SQL tool integration, memory state tracking, and dynamic user interactions for business analytics at Cisco RTP.',
-    technologies: ['Python', 'LangGraph', 'LLM', 'SQL', 'Data Analysis'],
+    desc: 'Built a multi-agent AI orchestration system (LangGraph + ReAct) that cut SQL workflow runtime by 80% for incremental Annual Contract Value analysis. Reduced query latency from 20s to 3s by engineering a Pandas + DuckDB caching layer.',
+    technologies: ['Python', 'LangGraph', 'ReAct', 'SQL', 'DuckDB', 'Pandas'],
   },
   {
     id: 'uw-speech-transcription',

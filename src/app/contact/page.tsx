@@ -4,8 +4,8 @@ import { motion } from 'framer-motion';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGithub, faLinkedin } from '@fortawesome/free-brands-svg-icons';
 import { faEnvelope, faLocationDot } from '@fortawesome/free-solid-svg-icons';
-import { Navigation } from '@/components/Navigation';
-import { Starfield } from '@/components/Starfield';
+import { Navigation } from '@/components/layout/Navigation';
+import { Starfield } from '@/components/ui/Starfield';
 
 const contactMethods = [
   {

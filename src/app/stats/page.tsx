@@ -1,8 +1,8 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { Navigation } from '@/components/Navigation';
-import { Starfield } from '@/components/Starfield';
+import { Navigation } from '@/components/layout/Navigation';
+import { Starfield } from '@/components/ui/Starfield';
 
 const stats = [
   { label: 'Projects', value: '8', icon: '⚔️' },

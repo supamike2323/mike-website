@@ -3,8 +3,8 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import Markdown from 'markdown-to-jsx';
-import { Navigation } from '@/components/Navigation';
-import { Starfield } from '@/components/Starfield';
+import { Navigation } from '@/components/layout/Navigation';
+import { Starfield } from '@/components/ui/Starfield';
 
 export default function About() {
   const [markdown, setMarkdown] = useState('');

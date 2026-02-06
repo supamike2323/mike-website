@@ -1,25 +1,25 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { Navigation } from '@/components/Navigation';
-import { Starfield } from '@/components/Starfield';
+import { Navigation } from '@/components/layout/Navigation';
+import { Starfield } from '@/components/ui/Starfield';
 
 const experiences = [
   {
-    title: 'Machine Learning Research Intern',
+    title: 'Data Engineering Intern',
     company: 'Cisco Systems',
-    location: 'RTP, North Carolina',
-    period: 'Summer 2025',
-    description: 'Built an LLM-powered data analysis assistant featuring structured agent orchestration, SQL tool integration, memory state tracking, and dynamic user interactions for business analytics.',
-    technologies: ['Python', 'LangGraph', 'LLM', 'SQL', 'Data Analysis'],
+    location: 'Research Triangle Park, NC',
+    period: 'June 2025 – August 2025',
+    description: 'Built a multi-agent AI orchestration system (LangGraph + ReAct) that cut SQL workflow runtime by 80% for incremental Annual Contract Value analysis. Developed LangGraph AI agents for parameter extraction, SQL execution, and reporting. Reduced query latency from 20s to 3s by engineering a Pandas + DuckDB caching layer. Designed ML pipeline for prediction on 1M+ transactions using Random Forests and XGBoost. Achieved >0.90 AUC by applying advanced feature engineering. Generated 1.4M labeled training pairs for model training.',
+    technologies: ['Python', 'LangGraph', 'ReAct', 'SQL', 'DuckDB', 'Pandas', 'ML (XGBoost/Random Forest)'],
   },
   {
-    title: 'Research Assistant',
-    company: 'University of Washington Allen School',
+    title: 'Research Assistant – Backend Development',
+    company: 'University of Washington - Paul G. Allen School',
     location: 'Seattle, WA',
-    period: '2024-2025',
-    description: 'Developed PostgreSQL database on AWS RDS and fine-tuned WhisperTiny model for accented speech transcription using PyTorch, with RESTful APIs in Django.',
-    technologies: ['PostgreSQL', 'Django', 'PyTorch', 'AWS', 'Machine Learning'],
+    period: 'February 2025 - June 2025',
+    description: 'Advisor: Prof. Ben Shapiro. Selected as 1 of 20 students for a competitive research internship on AI fairness. Delivered an AIOps backend for investigating AI voice bias. Optimized PostgreSQL schema on AWS RDS for high-performance storage. Developed 20+ RESTful APIs in Django. Fine-tuned WhisperTiny model for accented speech transcription with PyTorch. Deployed containerized environments with Docker and automated CI/CD pipelines via GitLab.',
+    technologies: ['Django', 'PostgreSQL', 'AWS RDS', 'PyTorch', 'Docker', 'GitLab CI/CD'],
   },
   {
     title: 'Data Science Intern',
@@ -33,40 +33,47 @@ const experiences = [
 
 const education = [
   {
-    degree: 'Master of Science in Systems Engineering',
+    degree: 'Master of Science in Engineering, Systems Engineering',
     school: 'University of Pennsylvania',
     location: 'Philadelphia, PA',
-    period: '2025-2026',
+    period: 'August 2025 - December 2026',
     gpa: '???',
   },
   {
-    degree: 'Bachelor of Science in Computer Science',
+    degree: 'Bachelor of Science in Informatics (Data Science Track)',
     school: 'University of Washington',
     location: 'Seattle, WA',
-    period: '2021-2025',
+    period: 'August 2021 - August 2025',
     gpa: '3.75/4.0',
+  },
+  {
+    degree: 'Bachelor of Art in Psychology',
+    school: 'University of Washington',
+    location: 'Seattle, WA',
+    period: 'August 2021 - August 2025',
+    gpa: '3.9/4.0',
   },
 ];
 
 const skills = [
   {
-    category: 'Languages',
-    items: ['Python', 'JavaScript/TypeScript', 'R', 'SQL', 'Java', 'C++'],
-    level: 95,
-  },
-  {
     category: 'ML & AI',
-    items: ['PyTorch', 'TensorFlow', 'scikit-learn', 'LangGraph', 'CV', 'NLP'],
-    level: 85,
-  },
-  {
-    category: 'Web Dev',
-    items: ['React', 'Next.js', 'Node.js', 'Django', 'Express.js'],
+    items: ['PyTorch', 'Scikit-learn', 'Whisper', 'Multi-agent AI (LangGraph, ReAct)', 'Feature Engineering'],
     level: 90,
   },
   {
-    category: 'Cloud',
-    items: ['AWS', 'PostgreSQL', 'MongoDB', 'Redis', 'Docker'],
+    category: 'Data Eng',
+    items: ['Python', 'SQL (PostgreSQL, Teradata, DuckDB)', 'Pandas', 'NumPy', 'Data Pipelines', 'Warehousing'],
+    level: 95,
+  },
+  {
+    category: 'Full Stack',
+    items: ['Django', 'RESTful APIs', 'Java', 'JavaScript (ES6)', 'React', 'Flutter', 'Dart'],
+    level: 85,
+  },
+  {
+    category: 'Cloud/Ops',
+    items: ['AWS (SageMaker, EC2, S3, RDS, Lambda)', 'Docker', 'GitLab CI/CD', 'Workflow Automation'],
     level: 80,
   },
 ];
