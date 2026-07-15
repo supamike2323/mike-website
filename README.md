@@ -36,17 +36,25 @@ A personal portfolio website reimagined with a retro **Undertale** aesthetic. Bu
 
 ## 📦 Deployment
 
-This project is configured for **Firebase Hosting**.
+This site uses **GitHub Actions → GitHub Pages**.
 
-1.  Build the static export:
-    ```bash
-    npm run build
-    ```
+- Workflow: [`.github/workflows/deploy.yml`](.github/workflows/deploy.yml)
+- Trigger: push to `main` (or manual **Run workflow**)
+- Live URL: https://supamike2323.github.io/mike-website/
 
-2.  Deploy to Firebase:
-    ```bash
-    firebase deploy
-    ```
+### First-time setup
+
+1. Repo **Settings → Pages → Build and deployment → Source**: select **GitHub Actions**
+2. Push to `main` (or run the workflow manually)
+3. Wait for the **Deploy to GitHub Pages** workflow to finish
+
+### Local production build
+
+```bash
+npm run build
+```
+
+Static files are written to `out/` (also used by Firebase Hosting if you deploy there manually).
 
 ## 🎨 Asset Credits
 

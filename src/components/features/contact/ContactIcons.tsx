@@ -2,14 +2,13 @@
 
 import { motion } from 'framer-motion';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faGithub, faLinkedin, faTwitter } from '@fortawesome/free-brands-svg-icons';
+import { faGithub, faLinkedin } from '@fortawesome/free-brands-svg-icons';
 import { faEnvelope } from '@fortawesome/free-solid-svg-icons';
 
 const socialLinks = [
   { icon: faGithub, href: 'https://github.com/supamike2323', label: 'GitHub' },
   { icon: faLinkedin, href: 'https://linkedin.com/in/jiaming-deng-mike', label: 'LinkedIn' },
-  { icon: faTwitter, href: 'https://twitter.com/', label: 'Twitter' },
-  { icon: faEnvelope as typeof faGithub, href: 'mailto:miked232@seas.upenn.edu', label: 'Email' },
+  { icon: faEnvelope as typeof faGithub, href: 'mailto:miked232@engineering.upenn.edu', label: 'Email' },
 ] as const;
 
 export function ContactIcons() {

@@ -12,11 +12,11 @@ export function SimpleHome() {
                         Jiaming (Mike) Deng
                     </h1>
                     <p className="text-xl md:text-2xl text-neutral-600 font-light mb-8">
-                        Data Engineering Intern @ Cisco | Systems Engineering MS Student @ UPenn
+                        Data Engineering Intern @ TikTok | Systems Engineering MS Student @ UPenn
                     </p>
                     <div className="flex flex-wrap gap-4 text-sm text-neutral-600">
-                        <a href="mailto:miked232@seas.upenn.edu" className="hover:text-blue-600 transition-colors">
-                            miked232@seas.upenn.edu
+                        <a href="mailto:miked232@engineering.upenn.edu" className="hover:text-blue-600 transition-colors">
+                            miked232@engineering.upenn.edu
                         </a>
                         <span>•</span>
                         <a href="tel:+14253625513" className="hover:text-blue-600 transition-colors">
@@ -37,9 +37,10 @@ export function SimpleHome() {
                 <section className="mb-16">
                     <h2 className="text-sm font-bold uppercase tracking-wider text-neutral-500 mb-6">Summary</h2>
                     <p className="text-lg leading-relaxed text-neutral-700 max-w-3xl">
-                        Pursuing a Master of Science in Systems Engineering at UPenn and a Bachelor of Science in Informatics (Data Science)
-                        at UW. Experienced in building multi-agent AI orchestration systems, optimizing SQL workflows, and developing
-                        scalable backend architectures. Skilled in PyTorch, LangGraph, AWS, and Data Engineering.
+                        Pursuing a Master of Science in Systems Engineering at UPenn. Most recently a Data Engineering Intern at
+                        TikTok Commerce & Global Services, building Spark/Hive ETL pipelines, automated MySQL→Hive (DTS) ingestion,
+                        U18 compliance audit systems, and MCP-based data-platform tooling. Skilled in Spark, Hive, SQL, Python,
+                        and large-scale data warehousing.
                     </p>
                 </section>
 
@@ -48,6 +49,18 @@ export function SimpleHome() {
                     <h2 className="text-sm font-bold uppercase tracking-wider text-neutral-500 mb-6">Experience Highlights</h2>
 
                     <div className="space-y-8">
+                        <div>
+                            <div className="flex flex-col sm:flex-row sm:items-baseline sm:justify-between mb-2">
+                                <h3 className="text-xl font-semibold text-neutral-900">Data Engineering Intern</h3>
+                                <span className="text-neutral-500 font-medium">May 2026 – August 2026</span>
+                            </div>
+                            <div className="text-blue-600 font-medium mb-3">TikTok Commerce & Global Services</div>
+                            <p className="text-neutral-700 leading-relaxed max-w-3xl">
+                                Built Spark/Hive ETL tooling and an automated MySQL→Hive (DTS) ingestion pipeline; developed U18
+                                compliance audit SQL across 10M+ daily records and a 24-tool MCP data-platform interface.
+                            </p>
+                        </div>
+
                         <div>
                             <div className="flex flex-col sm:flex-row sm:items-baseline sm:justify-between mb-2">
                                 <h3 className="text-xl font-semibold text-neutral-900">Data Engineering Intern</h3>

@@ -10,8 +10,8 @@ const contactMethods = [
     {
         // icon: faEnvelope,
         label: 'Email',
-        value: 'mikedeng@uw.edu',
-        href: 'mailto:mikedeng@uw.edu',
+        value: 'miked232@engineering.upenn.edu',
+        href: 'mailto:miked232@engineering.upenn.edu',
         color: 'text-blue-600',
         bgColor: 'bg-blue-50',
     },

@@ -1,6 +1,14 @@
 export const experiences = [
     {
         title: 'Data Engineering Intern',
+        company: 'TikTok Commerce & Global Services',
+        location: 'Seattle, WA',
+        period: 'May 2026 – August 2026',
+        description: 'Built a local Spark/Hive ETL workspace that synced platform code and cut offline pipeline iteration time by ~40%. Engineered an automated MySQL→Hive (DTS) ingestion pipeline with schema mapping, partitioned parquet/ZSTD tables, and template-driven DDL that eliminated recurring syntax failures. Developed distributed Hive/Spark audit SQL for U18 compliance across 10M+ daily records, loading 500K+ risk results into partitioned downstream tables. Built an end-to-end Spark/Hive validation pipeline with guarded LLM rewrites and reconciliation checks (~35% less manual review). Delivered a 24-tool internal data-platform interface by orchestrating an internal CLI through Model Context Protocol servers.',
+        technologies: ['Spark', 'Hive', 'Python', 'SQL', 'MySQL/RDS', 'DTS', 'ETL', 'MCP', 'Parquet/ZSTD'],
+    },
+    {
+        title: 'Data Engineering Intern',
         company: 'Cisco Systems',
         location: 'Research Triangle Park, NC',
         period: 'June 2025 – August 2025',
@@ -31,7 +39,7 @@ export const education = [
         school: 'University of Pennsylvania',
         location: 'Philadelphia, PA',
         period: 'August 2025 - December 2026',
-        gpa: '???',
+        gpa: '3.9/4.0',
     },
     {
         degree: 'Bachelor of Science in Informatics (Data Science Track)',
@@ -57,7 +65,7 @@ export const skills = [
     },
     {
         category: 'Data Eng',
-        items: ['Python', 'SQL (PostgreSQL, Teradata, DuckDB)', 'Pandas', 'NumPy', 'Data Pipelines', 'Warehousing'],
+        items: ['Python', 'SQL', 'Spark', 'Hive', 'ETL/ELT', 'Pandas', 'DuckDB', 'Data Modeling', 'Warehousing'],
         level: 95,
     },
     {
@@ -67,7 +75,7 @@ export const skills = [
     },
     {
         category: 'Cloud/Ops',
-        items: ['AWS (SageMaker, EC2, S3, RDS, Lambda)', 'Docker', 'GitLab CI/CD', 'Workflow Automation'],
+        items: ['AWS (S3, RDS, EC2, Lambda, SageMaker)', 'Docker', 'Kubernetes', 'GitLab CI/CD', 'Airflow', 'MCP'],
         level: 80,
     },
 ];

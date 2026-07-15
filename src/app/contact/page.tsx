@@ -13,8 +13,8 @@ const contactMethods = [
   {
     icon: faEnvelope,
     label: 'EMAIL',
-    value: 'mikedeng@uw.edu',
-    href: 'mailto:mikedeng@uw.edu',
+    value: 'miked232@engineering.upenn.edu',
+    href: 'mailto:miked232@engineering.upenn.edu',
     description: 'Send a message'
   },
   {
@@ -130,7 +130,7 @@ export default function Contact() {
               * Whether you have a project in mind, want to discuss opportunities, or just feel like saying hi, I&apos;d love to hear from you!
             </p>
             <motion.a
-              href="mailto:miked232@seas.upenn.edu"
+              href="mailto:miked232@engineering.upenn.edu"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               className="inline-flex items-center gap-3 px-8 py-4 border-2 border-[var(--ut-yellow)] text-[var(--ut-yellow)] hover:bg-[var(--ut-yellow)] hover:text-black transition-all"
