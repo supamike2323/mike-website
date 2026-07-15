@@ -146,12 +146,25 @@ export function ModeToggle() {
         userSelect: 'none',
         WebkitUserSelect: 'none',
         cursor: dragging ? 'grabbing' : 'grab',
+        // Explicit rgba — Tailwind opacity modifiers on CSS vars don't ship reliably
+        backgroundColor: isSimpleMode
+          ? 'rgba(37, 99, 235, 0.55)'
+          : 'rgba(255, 255, 0, 0.22)',
       }}
       className={`px-4 py-2 rounded-full font-bold shadow-lg backdrop-blur-md transition-colors duration-300 ${
         isSimpleMode
-          ? 'bg-blue-600/60 text-white hover:bg-blue-600/90 font-sans'
-          : 'bg-[var(--ut-yellow)]/25 border-2 border-[var(--ut-yellow)] text-[var(--ut-yellow)] hover:bg-[var(--ut-yellow)] hover:text-black font-["VT323"]'
+          ? 'text-white hover:bg-blue-600/90 font-sans'
+          : 'border-2 border-[var(--ut-yellow)] text-[var(--ut-yellow)] hover:bg-[var(--ut-yellow)] hover:text-black font-["VT323"]'
       }`}
+      whileHover={
+        dragging
+          ? undefined
+          : {
+              backgroundColor: isSimpleMode
+                ? 'rgba(37, 99, 235, 0.88)'
+                : 'rgba(255, 255, 0, 0.92)',
+            }
+      }
       title="Drag to move · Click to switch mode"
       aria-label={isSimpleMode ? 'Switch to Fancy Mode' : 'Switch to Simple Mode'}
     >
