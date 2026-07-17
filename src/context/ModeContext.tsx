@@ -8,19 +8,29 @@ interface ModeContextType {
 }
 
 const ModeContext = createContext<ModeContextType | undefined>(undefined);
-const MODE_KEY = 'isSimpleMode';
+
+// New key so old localStorage ('isSimpleMode=false') cannot force Fancy on load
+const MODE_KEY = 'portfolio-mode-v2';
 
 export function ModeProvider({ children }: { children: React.ReactNode }) {
-  // Always start in Simple Mode for first paint / SSR
+  // Default + first paint: always Simple Mode
   const [isSimpleMode, setIsSimpleMode] = useState(true);
 
   useEffect(() => {
+    // Drop legacy preference that was sticking visitors on Fancy
+    try {
+      localStorage.removeItem('isSimpleMode');
+    } catch {
+      // ignore
+    }
+
     const saved = localStorage.getItem(MODE_KEY);
-    // Only restore Fancy if user explicitly saved it before
-    if (saved === 'false') {
+    // Only open Fancy if the user explicitly chose it after this reset
+    if (saved === 'fancy') {
       setIsSimpleMode(false);
     } else {
       setIsSimpleMode(true);
+      localStorage.setItem(MODE_KEY, 'simple');
     }
   }, []);
 
@@ -35,7 +45,7 @@ export function ModeProvider({ children }: { children: React.ReactNode }) {
   const toggleMode = useCallback(() => {
     setIsSimpleMode((prev) => {
       const next = !prev;
-      localStorage.setItem(MODE_KEY, String(next));
+      localStorage.setItem(MODE_KEY, next ? 'simple' : 'fancy');
       return next;
     });
   }, []);
