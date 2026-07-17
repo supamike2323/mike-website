@@ -1,10 +1,10 @@
 'use client';
 
 import { useMode } from '@/context/ModeContext';
-import { motion, type PanInfo } from 'framer-motion';
-import { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 
-const STORAGE_KEY = 'mode-toggle-position';
+const POSITION_KEY = 'mode-toggle-pos-v2';
+const DRAG_THRESHOLD = 6;
 
 type Position = { x: number; y: number };
 
@@ -15,14 +15,12 @@ function clamp(value: number, min: number, max: number) {
 function loadPosition(): Position | null {
   if (typeof window === 'undefined') return null;
   try {
-    const raw = localStorage.getItem(STORAGE_KEY);
+    const raw = localStorage.getItem(POSITION_KEY);
     if (!raw) return null;
     const parsed = JSON.parse(raw) as Position;
-    if (typeof parsed.x === 'number' && typeof parsed.y === 'number') {
-      return parsed;
-    }
+    if (typeof parsed.x === 'number' && typeof parsed.y === 'number') return parsed;
   } catch {
-    // ignore corrupt storage
+    // ignore
   }
   return null;
 }
@@ -30,145 +28,165 @@ function loadPosition(): Position | null {
 export function ModeToggle() {
   const { isSimpleMode, toggleMode } = useMode();
   const buttonRef = useRef<HTMLButtonElement>(null);
-  const [position, setPosition] = useState<Position | null>(null);
-  const [constraints, setConstraints] = useState({ left: 0, top: 0, right: 0, bottom: 0 });
+  const [position, setPosition] = useState<Position>({ x: 16, y: 16 });
+  const [ready, setReady] = useState(false);
   const [dragging, setDragging] = useState(false);
-  const didDrag = useRef(false);
 
-  const measureConstraints = useCallback(() => {
+  const dragRef = useRef({
+    active: false,
+    moved: false,
+    startX: 0,
+    startY: 0,
+    originX: 0,
+    originY: 0,
+  });
+
+  const getBounds = useCallback(() => {
     const el = buttonRef.current;
-    const width = el?.offsetWidth ?? 220;
+    const width = el?.offsetWidth ?? 200;
     const height = el?.offsetHeight ?? 44;
-    const right = Math.max(0, window.innerWidth - width);
-    const bottom = Math.max(0, window.innerHeight - height);
-    setConstraints({ left: 0, top: 0, right, bottom });
-    return { right, bottom, width, height };
+    return {
+      width,
+      height,
+      maxX: Math.max(0, window.innerWidth - width),
+      maxY: Math.max(0, window.innerHeight - height),
+    };
   }, []);
 
+  // Default: bottom-left corner
   useEffect(() => {
-    const bounds = measureConstraints();
+    const { maxX, maxY } = getBounds();
     const saved = loadPosition();
     if (saved) {
       setPosition({
-        x: clamp(saved.x, 0, bounds.right),
-        y: clamp(saved.y, 0, bounds.bottom),
+        x: clamp(saved.x, 0, maxX),
+        y: clamp(saved.y, 0, maxY),
       });
-      return;
+    } else {
+      setPosition({ x: 16, y: maxY - 8 });
     }
-    setPosition({ x: 24, y: Math.max(0, bounds.bottom - 8) });
-  }, [measureConstraints]);
+    setReady(true);
+  }, [getBounds]);
 
-  useLayoutEffect(() => {
-    if (!position) return;
-    const bounds = measureConstraints();
-    setPosition((prev) => {
-      if (!prev) return prev;
-      const next = {
-        x: clamp(prev.x, 0, bounds.right),
-        y: clamp(prev.y, 0, bounds.bottom),
-      };
-      if (next.x === prev.x && next.y === prev.y) return prev;
-      return next;
-    });
-    // Re-measure when label text (and thus button width) changes
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isSimpleMode, measureConstraints]);
+  useEffect(() => {
+    if (!ready) return;
+    const { maxX, maxY } = getBounds();
+    setPosition((prev) => ({
+      x: clamp(prev.x, 0, maxX),
+      y: clamp(prev.y, 0, maxY),
+    }));
+  }, [isSimpleMode, ready, getBounds]);
 
   useEffect(() => {
     const onResize = () => {
-      const bounds = measureConstraints();
-      setPosition((prev) => {
-        if (!prev) return prev;
-        return {
-          x: clamp(prev.x, 0, bounds.right),
-          y: clamp(prev.y, 0, bounds.bottom),
-        };
-      });
+      const { maxX, maxY } = getBounds();
+      setPosition((prev) => ({
+        x: clamp(prev.x, 0, maxX),
+        y: clamp(prev.y, 0, maxY),
+      }));
     };
     window.addEventListener('resize', onResize);
     return () => window.removeEventListener('resize', onResize);
-  }, [measureConstraints]);
+  }, [getBounds]);
 
-  const onDragStart = () => {
-    didDrag.current = false;
-    setDragging(true);
+  useEffect(() => {
+    const onPointerMove = (e: PointerEvent) => {
+      const d = dragRef.current;
+      if (!d.active) return;
+
+      const dx = e.clientX - d.startX;
+      const dy = e.clientY - d.startY;
+      if (Math.abs(dx) > DRAG_THRESHOLD || Math.abs(dy) > DRAG_THRESHOLD) {
+        d.moved = true;
+        setDragging(true);
+      }
+
+      const { maxX, maxY } = getBounds();
+      setPosition({
+        x: clamp(d.originX + dx, 0, maxX),
+        y: clamp(d.originY + dy, 0, maxY),
+      });
+    };
+
+    const onPointerUp = () => {
+      const d = dragRef.current;
+      if (!d.active) return;
+      d.active = false;
+      setDragging(false);
+      setPosition((prev) => {
+        localStorage.setItem(POSITION_KEY, JSON.stringify(prev));
+        return prev;
+      });
+    };
+
+    window.addEventListener('pointermove', onPointerMove);
+    window.addEventListener('pointerup', onPointerUp);
+    window.addEventListener('pointercancel', onPointerUp);
+    return () => {
+      window.removeEventListener('pointermove', onPointerMove);
+      window.removeEventListener('pointerup', onPointerUp);
+      window.removeEventListener('pointercancel', onPointerUp);
+    };
+  }, [getBounds]);
+
+  const onPointerDown = (e: React.PointerEvent<HTMLButtonElement>) => {
+    // Only primary button / touch
+    if (e.button !== 0 && e.pointerType === 'mouse') return;
+    e.currentTarget.setPointerCapture(e.pointerId);
+    dragRef.current = {
+      active: true,
+      moved: false,
+      startX: e.clientX,
+      startY: e.clientY,
+      originX: position.x,
+      originY: position.y,
+    };
   };
 
-  const onDrag = (_: MouseEvent | TouchEvent | PointerEvent, info: PanInfo) => {
-    if (Math.abs(info.offset.x) > 4 || Math.abs(info.offset.y) > 4) {
-      didDrag.current = true;
+  const onClick = (e: React.MouseEvent) => {
+    // After a drag, ignore the synthetic click
+    if (dragRef.current.moved) {
+      e.preventDefault();
+      e.stopPropagation();
+      dragRef.current.moved = false;
+      return;
     }
-  };
-
-  const onDragEnd = (_: MouseEvent | TouchEvent | PointerEvent, info: PanInfo) => {
-    setDragging(false);
-    setPosition((prev) => {
-      if (!prev) return prev;
-      const bounds = measureConstraints();
-      const next = {
-        x: clamp(prev.x + info.offset.x, 0, bounds.right),
-        y: clamp(prev.y + info.offset.y, 0, bounds.bottom),
-      };
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(next));
-      return next;
-    });
-  };
-
-  const onTap = () => {
-    if (didDrag.current) return;
     toggleMode();
   };
 
-  if (!position) return null;
+  if (!ready) return null;
 
   return (
-    <motion.button
+    <button
       ref={buttonRef}
       type="button"
-      drag
-      dragMomentum={false}
-      dragElastic={0}
-      dragConstraints={constraints}
-      dragPropagation={false}
-      onDragStart={onDragStart}
-      onDrag={onDrag}
-      onDragEnd={onDragEnd}
-      onTap={onTap}
-      initial={false}
+      onPointerDown={onPointerDown}
+      onClick={onClick}
       style={{
         position: 'fixed',
-        left: 0,
-        top: 0,
-        x: position.x,
-        y: position.y,
+        left: position.x,
+        top: position.y,
         zIndex: 100,
         touchAction: 'none',
         userSelect: 'none',
         WebkitUserSelect: 'none',
         cursor: dragging ? 'grabbing' : 'grab',
-        // Explicit rgba — Tailwind opacity modifiers on CSS vars don't ship reliably
+        // Light enough to read text behind; no heavy backdrop blur
         backgroundColor: isSimpleMode
-          ? 'rgba(37, 99, 235, 0.55)'
-          : 'rgba(255, 255, 0, 0.22)',
+          ? 'rgba(37, 99, 235, 0.28)'
+          : 'rgba(255, 255, 0, 0.18)',
+        backdropFilter: 'blur(2px)',
+        WebkitBackdropFilter: 'blur(2px)',
       }}
-      className={`px-4 py-2 rounded-full font-bold shadow-lg backdrop-blur-md transition-colors duration-300 ${
+      className={`px-4 py-2 rounded-full font-bold border transition-colors duration-200 ${
         isSimpleMode
-          ? 'text-white hover:bg-blue-600/90 font-sans'
-          : 'border-2 border-[var(--ut-yellow)] text-[var(--ut-yellow)] hover:bg-[var(--ut-yellow)] hover:text-black font-["VT323"]'
+          ? 'border-blue-500/40 text-blue-900 hover:bg-blue-600/50 font-sans'
+          : 'border-[var(--ut-yellow)]/70 text-[var(--ut-yellow)] hover:bg-yellow-300/40 font-["VT323"]'
       }`}
-      whileHover={
-        dragging
-          ? undefined
-          : {
-              backgroundColor: isSimpleMode
-                ? 'rgba(37, 99, 235, 0.88)'
-                : 'rgba(255, 255, 0, 0.92)',
-            }
-      }
       title="Drag to move · Click to switch mode"
       aria-label={isSimpleMode ? 'Switch to Fancy Mode' : 'Switch to Simple Mode'}
     >
-      {isSimpleMode ? '✨ Switch to Fancy Mode' : '📝 Switch to Simple Mode'}
-    </motion.button>
+      {isSimpleMode ? '✨ Fancy Mode' : '📝 Simple Mode'}
+    </button>
   );
 }
